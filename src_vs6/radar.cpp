@@ -6,8 +6,8 @@ void DrawRadarFrame()
 {
 	if(cvar.misc_radar)
 	{
-		FillRGBA(g_Screen.iWidth/2,g_Screen.iHeight/2-cvar.misc_radars,1,2*cvar.misc_radars,0,255,0,cvar.misc_tint*255.0f);
-		FillRGBA(g_Screen.iWidth/2-cvar.misc_radars,g_Screen.iHeight/2,2*cvar.misc_radars,1,0,255,0,cvar.misc_tint*255.0f);
+		g_Engine.pfnFillRGBA(g_Screen.iWidth/2,g_Screen.iHeight/2-cvar.misc_radars,1,2*cvar.misc_radars,0,255,0,cvar.misc_tint*255.0f);
+		g_Engine.pfnFillRGBA(g_Screen.iWidth/2-cvar.misc_radars,g_Screen.iHeight/2,2*cvar.misc_radars,1,0,255,0,cvar.misc_tint*255.0f);
 	}
 }
 

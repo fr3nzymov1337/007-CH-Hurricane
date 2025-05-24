@@ -258,8 +258,7 @@ void WAYPOINT::FindTarget(struct usercmd_s *usercmd)
 	if(!l.MsgAlive){ FindNearPoint=false; isRunning=false; runContinue=false; beforeGroup=-1; iLine=-1; iPoint=-1; return; }
 	if(!cvar.rush || !cvar.way_on){ FindNearPoint=false; isRunning=false; runContinue=false; beforeGroup=-1; iLine=-1; iPoint=-1; return; }
 	if(IsKnife(l.WpnID) && iTargetID != 0){ FindNearPoint=false; isRunning=false; runContinue=false; beforeGroup=-1; iLine=-1; iPoint=-1; return; }
-
-	if(iTargetID != 0){ FindNearPoint=false; isRunning=false; runContinue=false; beforeGroup=-1; iLine=-1; iPoint=-1; return; }
+	if(cvar.way_mode == 1 && iTargetID != 0){ FindNearPoint=false; isRunning=false; runContinue=false; beforeGroup=-1; iLine=-1; iPoint=-1; return; }
 
 	float nearDist=550.0f;
 	float minAngles = 180.0f;

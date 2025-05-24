@@ -183,7 +183,7 @@ void PlayerEsp()
 		PlayerInfo& p = g_Player[i];
 		sMe& l = g_Local;
 
-		if(cvar.rush && cvar.misc_nohud) return;
+		if(cvar.rush && (cvar.misc_nohud || cvar.misc_norefresh)) return;
 
 		if(i == l.iIndex || p.IsValidEnt || p.previousSound.dwTime + cvar.misc_soundtime*1000 <= GetTickCount()){
 			SoundClear(p.previousSound);}
