@@ -698,7 +698,7 @@ void DrawSpread()
 			float x = (g_Screen.iWidth / 2.0f) - (xx * 10);
 			float y = (g_Screen.iHeight / 2.0f) + (yy * 10);
 
-			FillRGBA(x-0.5, y, 3, 3, cvar.color_red*255.0f, cvar.color_green*255.0f, cvar.color_blue*255.0f, cvar.misc_tint*255.0f);
+			g_Engine.pfnFillRGBA(x-0.5, y, 3, 3, cvar.color_red*255.0f, cvar.color_green*255.0f, cvar.color_blue*255.0f, cvar.misc_tint*255.0f);
 			blackBorder(x-0.5,y,3,4,cvar.misc_tint*255.0f);
 		}
 	}
@@ -717,7 +717,7 @@ void DrawRecoil()
 			float x = (g_Screen.iWidth / 2.0f) - (xx * 10);
 			float y = (g_Screen.iHeight / 2.0f) + (yy * 10);
 
-			FillRGBA(x-0.5, y, 3, 3, 0, 255, 0, cvar.misc_tint*255.0f);
+			g_Engine.pfnFillRGBA(x-0.5, y, 3, 3, 0, 255, 0, cvar.misc_tint*255.0f);
 			blackBorder(x-0.5,y,3,4,cvar.misc_tint*255.0f);
 		}
 	}

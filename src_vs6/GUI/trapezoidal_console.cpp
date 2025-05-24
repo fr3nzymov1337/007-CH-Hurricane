@@ -49,23 +49,23 @@ struct blendcolor
 
 void ConsoleModule1(int x, int y, int w, int h, int box, int len, int r, int g, int b, int a)
 {
-	FillRGBA( x+1,       y,         w-1,    box, 255,255,255,255);
+	g_Engine.pfnFillRGBA( x+1,       y,         w-1,    box, 255,255,255,255);
 	int i=0;
 	while(i<=len)
 	{
 		if(i>=(len-1));
 		else
 		{
-			FillRGBA( x-i,       y+i+1,         w-1,      box, r,g,b,a);//relleno
+			g_Engine.pfnFillRGBA( x-i,       y+i+1,         w-1,      box, r,g,b,a);//relleno
 		}
 
-		FillRGBA( x-i,       y+i,         box,    box, 255,255,255,255);  //raya derecha
-		FillRGBA( x+w-i,     y+i,         box,    box, 255,255,255,255);  //raya izquierda
+		g_Engine.pfnFillRGBA( x-i,       y+i,         box,    box, 255,255,255,255);  //raya derecha
+		g_Engine.pfnFillRGBA( x+w-i,     y+i,         box,    box, 255,255,255,255);  //raya izquierda
 
 		i++;
 	}
 	int y_offs = h-1;
-	FillRGBA( x-len+1,       y+len,         w-1,    box, 255,255,255,255);
+	g_Engine.pfnFillRGBA( x-len+1,       y+len,         w-1,    box, 255,255,255,255);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -79,25 +79,25 @@ void TrapezoidalConsole(int con_x, int con_y, int con_w, int con_h)
 
 	int len1=25;
 
-	ConsoleModule1(con_x+len1,con_y-len1-5, con_w, 0, 1, len1,15, 50,255, 50);
+	ConsoleModule1(con_x+len1,con_y-len1-5, con_w, 0, 1, len1,cvar.color_red*200,cvar.color_green*200,cvar.color_blue*200, 50);
 
 	/////////////////////////////////////////////////////////
 
 	//dibujar cuadro inferior
 
-	ConsoleModule1(con_x,con_y+con_h+5, con_w, 0, 1, len1,15, 50,255, 50);
+	ConsoleModule1(con_x,con_y+con_h+5, con_w, 0, 1, len1,cvar.color_red*200,cvar.color_green*200,cvar.color_blue*200, 50);
 
 	/////////////////////////////////////////////////////////
 
-	FillRGBA( con_x-1, con_y-1, con_w+2, 1, 255,255,255,255);
-	FillRGBA( con_x-1, con_y, 1, con_h, 255,255,255,255);
-	FillRGBA( con_x+con_w+1, con_y-1, 1, con_h+1, 255,255,255,255);
-	FillRGBA( con_x-1, con_y+con_h, con_w+3, 1, 255,255,255,255);
+	g_Engine.pfnFillRGBA( con_x-1, con_y-1, con_w+2, 1, 255,255,255,255);
+	g_Engine.pfnFillRGBA( con_x-1, con_y, 1, con_h, 255,255,255,255);
+	g_Engine.pfnFillRGBA( con_x+con_w+1, con_y-1, 1, con_h+1, 255,255,255,255);
+	g_Engine.pfnFillRGBA( con_x-1, con_y+con_h, con_w+3, 1, 255,255,255,255);
 
 	/////////////////////////////////////////////////////////
 
 	//tintArea(500,0,displayCenterX*2,400,color);
-	tintArea(con_x,con_y,con_w,con_h,0,60,220,50);
+	tintArea(con_x,con_y,con_w,con_h,cvar.color_red*255,cvar.color_green*255,cvar.color_blue*255,50);
 
 	/////////////////////////////////////////////////////////
 

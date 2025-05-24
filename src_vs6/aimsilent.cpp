@@ -101,9 +101,9 @@ void DrawAim()
 					if(WorldToScreen(p.Hud_AimOrigin, AimAngles))
 					{
 						if(cvar.aim_activate)
-							FillRGBA((int)AimAngles[0]-1,(int)AimAngles[1] , 3 , 3 , 30 , 255 , 30 , cvar.misc_tint*255.0f );
+							g_Engine.pfnFillRGBA((int)AimAngles[0]-1,(int)AimAngles[1] , 3 , 3 , 30 , 255 , 30 , cvar.misc_tint*255.0f );
 						else
-							FillRGBA((int)AimAngles[0]-1,(int)AimAngles[1] , 3 , 3 , cvar.color_red*255.0f, cvar.color_green*255.0f, cvar.color_blue*255.0f , cvar.misc_tint*255.0f );
+							g_Engine.pfnFillRGBA((int)AimAngles[0]-1,(int)AimAngles[1] , 3 , 3 , cvar.color_red*255.0f, cvar.color_green*255.0f, cvar.color_blue*255.0f , cvar.misc_tint*255.0f );
 
 						blackBorder((int)AimAngles[0]-1,(int)AimAngles[1],3,4,cvar.misc_tint*255.0f);
 					}

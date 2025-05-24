@@ -41,10 +41,15 @@ void APIENTRY Hooked_glBegin(GLenum mode)
 {
 	cl_entity_s *pEnt=g_Studio.GetCurrentEntity();
 
-	if(DrawVisuals && !cvar.rush)
+	if(DrawVisuals && (!cvar.rush || cvar.way_drawvisuals))
 	{
 		if(pEnt && pEnt->player && pEnt->curstate.solid || pEnt && !pEnt->player && pEnt->model && pEnt->model->name && strstr(pEnt->model->name , "w_" ))
-			if(mode == GL_TRIANGLE_STRIP || mode == GL_TRIANGLE_FAN) { if(cvar.misc_wall)glDepthRange(0, 0.5); }
+		{	
+			if(mode == GL_TRIANGLE_STRIP || mode == GL_TRIANGLE_FAN)
+			{
+				if(cvar.misc_wall)glDepthRange(0, 0.5);
+			}
+		}
 		else
 			if(cvar.misc_wall)glDisable(GL_DEPTH_TEST);
 	}
@@ -60,10 +65,8 @@ void APIENTRY Hooked_glBegin(GLenum mode)
 	else
 		glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
 
-	if (mode == GL_QUADS && cvar.misc_nosky)
-		bDrawingSky=true;
-	else
-		bDrawingSky=false;
+	if (mode == GL_QUADS && cvar.misc_nosky) { bDrawingSky = true; }
+	else { bDrawingSky = false; }
 
 	(*pglBegin)(mode);
 }

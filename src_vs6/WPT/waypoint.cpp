@@ -372,7 +372,9 @@ void WAYPOINT::DrawWayPoint()
 {
 	sMe& l = g_Local;
 
-	if(!l.MsgAlive) return;
+	if(!l.MsgAlive && l.HudAlive) return;
+
+	if(cvar.rush && cvar.misc_nohud) return;
 
 	for(int i=1;i<=group_count;i++)
 	{
@@ -415,12 +417,14 @@ void WAYPOINT::DrawWayLine()
 {
 	sMe& l = g_Local;
 
-	if(!l.MsgAlive) return;
+	if(!l.MsgAlive && l.HudAlive) return;
+
+	if(cvar.rush && cvar.misc_nohud) return;
 
 	float vecScreen[2];
 	float from[3], to[3];
 
-	if(cvar.way_draw==2)
+	if(cvar.way_draw == 2)
 	{
 		for(int i=1;i<=group_count;i++)
 		{
@@ -464,7 +468,7 @@ void WAYPOINT::DrawRadarsPoints()
 			{
 				if(!(j%10))
 				{
-					if(cvar.misc_radar && cvar.misc_radarpoints)DrawRadarPoint(ways[i][j].point,255,255,255,3,3,false);
+					if(cvar.misc_radar && cvar.misc_radarpoints)DrawRadarPoint(ways[i][j].point,cvar.color_red*255.0f,cvar.color_green*255.0f,cvar.color_blue*255.0f,3,3,true);
 				}
 			}
 		}

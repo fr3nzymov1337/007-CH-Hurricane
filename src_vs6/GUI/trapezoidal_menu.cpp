@@ -32,7 +32,7 @@ struct start_end MenuModule1(int x, int y, int w, int h, int box, int len, int r
 {
 	struct start_end ends;
 	
-	FillRGBA( x+1,       y,         w-1,    box, 0,60,220,200);
+	g_Engine.pfnFillRGBA( x+1,       y,         w-1,    box, cvar.color_red*255,cvar.color_green*255,cvar.color_blue*255,200);
 
 	int i=0;
 	while(i<=len)
@@ -41,13 +41,13 @@ struct start_end MenuModule1(int x, int y, int w, int h, int box, int len, int r
 		else
 		{
 //			oglSubtractive = true;
-			FillRGBA( x-i,       y+i+1,         w-1,      box, 0,60,220,50);//relleno
+			g_Engine.pfnFillRGBA( x-i,       y+i+1,         w-1,      box, cvar.color_red*255,cvar.color_green*255,cvar.color_blue*255,50);//relleno
 //			oglSubtractive = false;
 		}
 
 //		oglSubtractive = true;
-		FillRGBA( x-i,       y+i,         box,    box, 0,60,220,200);  //raya derecha
-		FillRGBA( x+w-i,     y+i,         box,    box, 0,60,220,200);  //raya izquierda
+		g_Engine.pfnFillRGBA( x-i,       y+i,         box,    box, cvar.color_red*255,cvar.color_green*255,cvar.color_blue*255,200);  //raya derecha
+		g_Engine.pfnFillRGBA( x+w-i,     y+i,         box,    box, cvar.color_red*255,cvar.color_green*255,cvar.color_blue*255,200);  //raya izquierda
 //		oglSubtractive = false;
 
 		if(i==0)//rescata los valores maximos
@@ -73,7 +73,7 @@ struct start_end MenuModule1(int x, int y, int w, int h, int box, int len, int r
 
 	int y_offs = h-1;
 //	oglSubtractive = true;
-	FillRGBA( x-len+1,       y+len,         w-1,    box, 0,60,220,200);
+	g_Engine.pfnFillRGBA( x-len+1,       y+len,         w-1,    box, cvar.color_red*255,cvar.color_green*255,cvar.color_blue*255,200);
 //	oglSubtractive = false;
 
 	return ends;
@@ -86,7 +86,7 @@ struct start_end MenuModule2a(int x, int y, int w, int h, int box, int len, int 
 	struct start_end ends;
 	
 //	oglSubtractive = true;
-	FillRGBA( x+1,       y,         w-1,    box, 0,60,220,200);
+	g_Engine.pfnFillRGBA( x+1,       y,         w-1,    box, cvar.color_red*255,cvar.color_green*255,cvar.color_blue*255,200);
 //	oglSubtractive = false;
 
 	int i=0;
@@ -113,7 +113,7 @@ struct start_end MenuModule2a(int x, int y, int w, int h, int box, int len, int 
 
 	int y_offs = h-1;
 //	oglSubtractive = true;
-	//FillRGBA( x-len+1,       y+len,         w-1,    box, 0,60,220,200);
+	//g_Engine.pfnFillRGBA( x-len+1,       y+len,         w-1,    box, cvar.color_red*255,cvar.color_green*255,cvar.color_blue*255,200);
 //	oglSubtractive = false;
 
 	return ends;
@@ -126,7 +126,7 @@ struct start_end MenuModule2b(int x, int y, int w, int h, int box, int len, int 
 	struct start_end ends;
 	
 //	oglSubtractive = true;
-	//FillRGBA( x+1,       y,         w-1,    box, 0,60,220,200);
+	//g_Engine.pfnFillRGBA( x+1,       y,         w-1,    box, cvar.color_red*255,cvar.color_green*255,cvar.color_blue*255,200);
 //	oglSubtractive = false;
 
 	int i=0;
@@ -153,7 +153,7 @@ struct start_end MenuModule2b(int x, int y, int w, int h, int box, int len, int 
 
 	int y_offs = h-1;
 //	oglSubtractive = true;
-	FillRGBA( x-len+1,       y+len,         w-1,    box, 0,60,220,200);
+	g_Engine.pfnFillRGBA( x-len+1,       y+len,         w-1,    box, cvar.color_red*255,cvar.color_green*255,cvar.color_blue*255,200);
 //	oglSubtractive = false;
 
 	return ends;
@@ -170,7 +170,7 @@ void MenuModule1Fill(int x, int y, int w, int h, int box, int len, int r, int g,
 		else
 		{
 //			oglSubtractive = true;
-			FillRGBA( x-i,       y+i+1,         w-1,      box, 0,60,220,50);//relleno
+			g_Engine.pfnFillRGBA( x-i,       y+i+1,         w-1,      box, cvar.color_red*255,cvar.color_green*255,cvar.color_blue*255,50);//relleno
 //		    oglSubtractive = false;
 		}
 		i++;
@@ -185,7 +185,7 @@ void DrawDiagonal1(int x, int y, int len, int box, int r, int g, int b, int a)
 	while(c<=len){
 
 //		oglSubtractive = true;
-		FillRGBA( x-c,     y+c,      box,   box, r,g,b,a);
+		g_Engine.pfnFillRGBA( x-c,     y+c,      box,   box, r,g,b,a);
 //		oglSubtractive = false;
 		c++;
 	}
@@ -199,7 +199,7 @@ void DrawDiagonal2(int x, int y, int len, int box, int r, int g, int b, int a)
 	while(c<=len){
 
 //		oglSubtractive = true;
-		FillRGBA( x+c,     y-c,      box,   box, r,g,b,a);
+		g_Engine.pfnFillRGBA( x+c,     y-c,      box,   box, r,g,b,a);
 //		oglSubtractive = false;
 		c++;
 	}
@@ -214,8 +214,8 @@ struct start_end TraceDiagonal(int x, int y, int w, int len)
 	int c=0;
 	while(c<=len){
 
-		//FillRGBA( x-c,       y+c,         1,    1, 255,255,255,255);  //raya derecha
-		//FillRGBA( x+w-c,     y+c,         1,    1, 255,255,255,255);  //raya izquierda
+		//g_Engine.pfnFillRGBA( x-c,       y+c,         1,    1, 255,255,255,255);  //raya derecha
+		//g_Engine.pfnFillRGBA( x+w-c,     y+c,         1,    1, 255,255,255,255);  //raya izquierda
 
 		if(c==0)//rescata los valores maximos
 		{
@@ -257,7 +257,7 @@ struct start_end Carcaza1_a(int x, int y, int w, int box, int len1, int offx1, i
 		{
 
 //			oglSubtractive = true;
-			if(c1!=len1)FillRGBA( x-c1,     y+c1,      66+c1+1,   box, 0,60,220,50);//relleno de entrada seleccionada
+			if(c1!=len1)g_Engine.pfnFillRGBA( x-c1,     y+c1,      66+c1+1,   box, cvar.color_red*255,cvar.color_green*255,cvar.color_blue*255,50);//relleno de entrada seleccionada
 //			oglSubtractive = false;
 		}
 
@@ -278,7 +278,7 @@ struct start_end Carcaza1_a(int x, int y, int w, int box, int len1, int offx1, i
 		}
 		
 //		oglSubtractive = true;
-		FillRGBA( x-c1,     y+c1,      box,   box, 0,60,220,200);
+		g_Engine.pfnFillRGBA( x-c1,     y+c1,      box,   box, cvar.color_red*255,cvar.color_green*255,cvar.color_blue*255,200);
 //		oglSubtractive = false;
 		c1++;
 	}
@@ -297,13 +297,13 @@ void Carcaza1_b(int x, int y, int box, int len1, int offx1, int offy1)
 		//else
 		{
 //			oglSubtractive = true;
-			FillRGBA( x-c1,     y-c1-aux_c1-2,      66+c1,   box+1, 0,60,220,50);//relleno de entrada seleccionada
+			g_Engine.pfnFillRGBA( x-c1,     y-c1-aux_c1-2,      66+c1,   box+1, cvar.color_red*255,cvar.color_green*255,cvar.color_blue*255,50);//relleno de entrada seleccionada
 //			oglSubtractive = false;
 		}
 		
 		aux_c1=c1+1;
 //		oglSubtractive = true;
-		FillRGBA( x-c1,     y-c1-aux_c1,      box,   box+1, 0,60,220,200);
+		g_Engine.pfnFillRGBA( x-c1,     y-c1-aux_c1,      box,   box+1, cvar.color_red*255,cvar.color_green*255,cvar.color_blue*255,200);
 //		oglSubtractive = false;
 		c1++;
 	}
@@ -323,21 +323,21 @@ void Carcaza2_a(int x, int y, int box, int len1, int offx1, int offy1)
 //			oglSubtractive = true;
 			if(c1==len1)
 			{
-				FillRGBA( x+c1+1,     y+c1+aux_c1+2,      -75-c1,   box, 0,60,220,50);//relleno de entrada seleccionada
+				g_Engine.pfnFillRGBA( x+c1+1,     y+c1+aux_c1+2,      -75-c1,   box, cvar.color_red*255,cvar.color_green*255,cvar.color_blue*255,50);//relleno de entrada seleccionada
 			}
 			else if(c1==(len1-1))
 			{
-				FillRGBA( x+c1+1,     y+c1+aux_c1+2,      -75-c1,   box+1, 0,60,220,50);//relleno de entrada seleccionada
+				g_Engine.pfnFillRGBA( x+c1+1,     y+c1+aux_c1+2,      -75-c1,   box+1, cvar.color_red*255,cvar.color_green*255,cvar.color_blue*255,50);//relleno de entrada seleccionada
 			}
 	        else{
-				FillRGBA( x+c1+1,     y+c1+aux_c1+2,      -70-c1,   box+1, 0,60,220,50);//relleno de entrada seleccionada
+				g_Engine.pfnFillRGBA( x+c1+1,     y+c1+aux_c1+2,      -70-c1,   box+1, cvar.color_red*255,cvar.color_green*255,cvar.color_blue*255,50);//relleno de entrada seleccionada
 			}
 //			oglSubtractive = false;
 		}
 
 		aux_c1=c1+1;
 //		oglSubtractive = true;
-		FillRGBA( x+c1,     y+c1+aux_c1,      box,   box+1, 0,60,220,200);
+		g_Engine.pfnFillRGBA( x+c1,     y+c1+aux_c1,      box,   box+1, cvar.color_red*255,cvar.color_green*255,cvar.color_blue*255,200);
 //		oglSubtractive = false;
 		c1++;
 	}
@@ -372,12 +372,12 @@ struct start_end Carcaza2_b(int x, int y, int w, int box, int len1, int offx1, i
 		else
 		{
 //			oglSubtractive = true;
-			FillRGBA( x+c1,     y-c1,      -70-c1,   box, 0,60,220,50);//relleno de entrada seleccionada
+			g_Engine.pfnFillRGBA( x+c1,     y-c1,      -70-c1,   box, cvar.color_red*255,cvar.color_green*255,cvar.color_blue*255,50);//relleno de entrada seleccionada
 //			oglSubtractive = false;
 		}
 
 //		oglSubtractive = true;
-		FillRGBA( x+c1,     y-c1,      box,   box, 0,60,220,200);
+		g_Engine.pfnFillRGBA( x+c1,     y-c1,      box,   box, cvar.color_red*255,cvar.color_green*255,cvar.color_blue*255,200);
 //		oglSubtractive = false;
 		c1++;
 	}
@@ -454,7 +454,7 @@ void TrapezoidalMenu(int x, int y, int w, int h)
 	int down_items = (menuItems-menuSelect)-1;
 	len4 = len1*down_items;
 	len4 = len4+(len1/2)+len1;
-	DrawDiagonal1(entry_x,entry_y,len3,box,0,60,220,200);
+	DrawDiagonal1(entry_x,entry_y,len3,box,cvar.color_red*255,cvar.color_green*255,cvar.color_blue*255,200);
 
 	ends8 = TraceDiagonal(entry_x+ENTRY_oFF,entry_y,w,len2);
 
@@ -470,7 +470,7 @@ void TrapezoidalMenu(int x, int y, int w, int h)
 
 	///////////////////////////////////////////////////////////////////////////////////
 
-	DrawDiagonal2(ends9.xs_d,ends9.ys_d,len4,box, 0,60,220, 200);
+	DrawDiagonal2(ends9.xs_d,ends9.ys_d,len4,box, cvar.color_red*255,cvar.color_green*255,cvar.color_blue*255, 200);
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -490,11 +490,11 @@ void TrapezoidalMenu(int x, int y, int w, int h)
 			ends6 = Carcaza1_a( ap2_x, ap2_y, w,box, 8, 0, 0);/* / */
 		    Carcaza1_b( ap3_x, ap3_y, box, 4, 0, 0);/* \ izquierda abajo */
 
-			FillRGBA(ends6.xe_i, ends6.ye_i+1,      -(ENTRY_oFF/2),   1, 0,60,220,200);//eje izquierdo
+			g_Engine.pfnFillRGBA(ends6.xe_i, ends6.ye_i+1,      -(ENTRY_oFF/2),   1, cvar.color_red*255,cvar.color_green*255,cvar.color_blue*255,200);//eje izquierdo
 
 			//lineas de tapado
-			FillRGBA(ap2_x, ap2_y,      15+1,   box, 0,60,220, 200);//p2TOp1 +offs
-			FillRGBA(ap3_x, ap3_y,      2,   box, 0,60,220, 200);//p3 +offs
+			g_Engine.pfnFillRGBA(ap2_x, ap2_y,      15+1,   box, cvar.color_red*255,cvar.color_green*255,cvar.color_blue*255, 200);//p2TOp1 +offs
+			g_Engine.pfnFillRGBA(ap3_x, ap3_y,      2,   box, cvar.color_red*255,cvar.color_green*255,cvar.color_blue*255, 200);//p3 +offs
 
 			int bp1_x=ends5.xe_d;
 			int bp1_y=ends5.ye_d;
@@ -505,11 +505,11 @@ void TrapezoidalMenu(int x, int y, int w, int h)
 			Carcaza2_a( bp3_x, bp3_y, box, 4, 0, 0);/* \ derecha arriba */
 			ends7 = Carcaza2_b( bp2_x, bp2_y, w,box, 8, 0, 0);/* / */
 
-			FillRGBA(ends7.xe_i, ends7.ye_i-1,      (ENTRY_oFF/2),   1, 0,60,220,200);//eje derecho
+			g_Engine.pfnFillRGBA(ends7.xe_i, ends7.ye_i-1,      (ENTRY_oFF/2),   1, cvar.color_red*255,cvar.color_green*255,cvar.color_blue*255,200);//eje derecho
 
 			//lineas de tapado
-			FillRGBA(bp1_x-1, bp1_y,      15+2,   box, 0,60,220, 200);//p1 -offs TOp2
-			FillRGBA(bp3_x, bp3_y+1,      -2,   box, 0,60,220, 200);// p3 -offs
+			g_Engine.pfnFillRGBA(bp1_x-1, bp1_y,      15+2,   box, cvar.color_red*255,cvar.color_green*255,cvar.color_blue*255, 200);//p1 -offs TOp2
+			g_Engine.pfnFillRGBA(bp3_x, bp3_y+1,      -2,   box, cvar.color_red*255,cvar.color_green*255,cvar.color_blue*255, 200);// p3 -offs
 
 			///////////////////////////////
 

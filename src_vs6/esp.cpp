@@ -64,8 +64,8 @@ bool Sequence(int i, int x, int y, ColorEntry *color)
 		else if(seqinfo == 2){
 			DrawHudStringCenterEsp(x, y, color->r, color->g, color->b, cvar.misc_esp_back, cvar.misc_tint*255.0f, "- RELOADING -");	
 			if(cvar.misc_tint*255.0f && cvar.misc_esp_back){
-				FillRGBA(x-26, y+1, 53, 12, 0, 0, 0, cvar.misc_tint*255.0f);
-				FillRGBA(x-25, y+2, (g_pEngine->GetEntityByIndex(i)->curstate.frame/255)*50, 10, 0, 255, 0, cvar.misc_tint*255.0f);}}
+				g_Engine.pfnFillRGBA(x-26, y+1, 53, 12, 0, 0, 0, cvar.misc_tint*255.0f);
+				g_Engine.pfnFillRGBA(x-25, y+2, (g_pEngine->GetEntityByIndex(i)->curstate.frame/255)*50, 10, 0, 255, 0, cvar.misc_tint*255.0f);}}
 		else if(seqinfo == 5 || seqinfo == 16)
 			DrawHudStringCenterEsp(x, y, color->r, color->g, color->b, cvar.misc_esp_back, cvar.misc_tint*255.0f, "- PLANTING C4 -");
 		return true;

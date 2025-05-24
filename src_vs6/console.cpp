@@ -38,7 +38,7 @@ void DrawConsole()
 		g_Engine.pfnDrawConsoleStringLen( gConsole.cursorpos, &ch_length, &height );
 		gConsole.cursorpos[1]=save;
 		if(!*gConsole.cursorpos) ch_length=5;
-        FillRGBA(x+length,y,ch_length,height-2,cvar.color_red*255.0f,cvar.color_green*255.0f,cvar.color_blue*255.0f,255);
+        g_Engine.pfnFillRGBA(x+length,y,ch_length,height-2,cvar.color_red*255.0f,cvar.color_green*255.0f,cvar.color_blue*255.0f,255);
 	}
 	g_Engine.pfnDrawSetTextColor(255/255.0f, 255/255.0f, 255/255.0f);
 	g_Engine.pfnDrawConsoleString(x,y-1,gConsole.editbuf);

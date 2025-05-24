@@ -19,6 +19,7 @@ void GetScreenInfo()
 	}
 	g_pEngine->pfnGetScreenInfo(&g_Screen);
 }
+
 bool WorldToScreen(float *pflOrigin, float *pflVecScreen)
 {
 	int iResult = g_Engine.pTriAPI->WorldToScreen(pflOrigin, pflVecScreen);
@@ -87,27 +88,6 @@ void DrawHudStringCenter(int x, int y, int r, int g, int b, const char *fmt, ...
 	g_Engine.pfnDrawConsoleString(x,y,buf);
 }
 
-void FillRGBA(GLfloat x, GLfloat y, int w, int h, UCHAR r, UCHAR g, UCHAR b, UCHAR a)
-{
-	glPushMatrix();
-	glLoadIdentity();
-	glDisable(GL_TEXTURE_2D);
-
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glColor4ub(r,g,b,a);
-	glBegin(GL_QUADS);
-	glVertex2f(x,y);
-	glVertex2f(x+w,y);
-	glVertex2f(x+w,y+h);
-	glVertex2f(x,y+h);
-	glEnd();
-	glDisable(GL_BLEND);
-
-	glPopMatrix();
-	glEnable(GL_TEXTURE_2D);
-}
-
 void FillArea(float x, float y, int w, int h, int r, int g, int b, int a)
 {
 	glPushMatrix();
@@ -145,25 +125,25 @@ void DrawHudStringCenterEsp (int x, int y, int r, int g, int b, float back, floa
 	x = x - length/2;
 	if(back)
 	{
-		FillRGBA( x, y+1, length+2, 1, cvar.color_red*255.0f, cvar.color_green*255.0f, cvar.color_blue*255.0f, tint/255*128);
-		FillRGBA( x, y+2, length+2, 1, cvar.color_red*235.0f, cvar.color_green*235.0f, cvar.color_blue*235.0f, tint/255*128);
-		FillRGBA( x, y+3, length+2, 1, cvar.color_red*215.0f, cvar.color_green*215.0f, cvar.color_blue*215.0f, tint/255*128);
-		FillRGBA( x, y+4, length+2, 1, cvar.color_red*195.0f, cvar.color_green*195.0f, cvar.color_blue*195.0f, tint/255*128);
-		FillRGBA( x, y+5, length+2, 1, cvar.color_red*175.0f, cvar.color_green*175.0f, cvar.color_blue*175.0f, tint/255*128);
-		FillRGBA( x, y+6, length+2, 1, cvar.color_red*155.0f, cvar.color_green*155.0f, cvar.color_blue*155.0f, tint/255*128);
-		FillRGBA( x, y+7, length+2, 1, cvar.color_red*135.0f, cvar.color_green*135.0f, cvar.color_blue*135.0f, tint/255*128);
-		FillRGBA( x, y+8, length+2, 1, cvar.color_red*115.0f, cvar.color_green*115.0f, cvar.color_blue*115.0f, tint/255*128);
-		FillRGBA( x, y+9, length+2, 1, cvar.color_red*95.0f, cvar.color_green*95.0f, cvar.color_blue*95.0f, tint/255*128);
-		FillRGBA( x, y+10, length+2, 1, cvar.color_red*75.0f, cvar.color_green*75.0f, cvar.color_blue*75.0f, tint/255*128);
-		FillRGBA( x, y+11, length+2, 1, cvar.color_red*55.0f, cvar.color_green*55.0f, cvar.color_blue*55.0f, tint/255*128);
-		FillRGBA( x, y+12, length+2, 1, cvar.color_red*35.0f, cvar.color_green*35.0f, cvar.color_blue*35.0f, tint/255*128);
-		FillRGBA( x, y+13, length+2, 1, cvar.color_red*15.0f, cvar.color_green*15.0f, cvar.color_blue*25.0f, tint/255*128);
-		FillRGBA( x, y+14, length+2, 1, cvar.color_red*05.0f, cvar.color_green*05.0f, cvar.color_blue*05.0f, tint/255*128);
+		g_Engine.pfnFillRGBA( x, y+1, length+2, 1, cvar.color_red*255.0f, cvar.color_green*255.0f, cvar.color_blue*255.0f, tint/255*128);
+		g_Engine.pfnFillRGBA( x, y+2, length+2, 1, cvar.color_red*235.0f, cvar.color_green*235.0f, cvar.color_blue*235.0f, tint/255*128);
+		g_Engine.pfnFillRGBA( x, y+3, length+2, 1, cvar.color_red*215.0f, cvar.color_green*215.0f, cvar.color_blue*215.0f, tint/255*128);
+		g_Engine.pfnFillRGBA( x, y+4, length+2, 1, cvar.color_red*195.0f, cvar.color_green*195.0f, cvar.color_blue*195.0f, tint/255*128);
+		g_Engine.pfnFillRGBA( x, y+5, length+2, 1, cvar.color_red*175.0f, cvar.color_green*175.0f, cvar.color_blue*175.0f, tint/255*128);
+		g_Engine.pfnFillRGBA( x, y+6, length+2, 1, cvar.color_red*155.0f, cvar.color_green*155.0f, cvar.color_blue*155.0f, tint/255*128);
+		g_Engine.pfnFillRGBA( x, y+7, length+2, 1, cvar.color_red*135.0f, cvar.color_green*135.0f, cvar.color_blue*135.0f, tint/255*128);
+		g_Engine.pfnFillRGBA( x, y+8, length+2, 1, cvar.color_red*115.0f, cvar.color_green*115.0f, cvar.color_blue*115.0f, tint/255*128);
+		g_Engine.pfnFillRGBA( x, y+9, length+2, 1, cvar.color_red*95.0f, cvar.color_green*95.0f, cvar.color_blue*95.0f, tint/255*128);
+		g_Engine.pfnFillRGBA( x, y+10, length+2, 1, cvar.color_red*75.0f, cvar.color_green*75.0f, cvar.color_blue*75.0f, tint/255*128);
+		g_Engine.pfnFillRGBA( x, y+11, length+2, 1, cvar.color_red*55.0f, cvar.color_green*55.0f, cvar.color_blue*55.0f, tint/255*128);
+		g_Engine.pfnFillRGBA( x, y+12, length+2, 1, cvar.color_red*35.0f, cvar.color_green*35.0f, cvar.color_blue*35.0f, tint/255*128);
+		g_Engine.pfnFillRGBA( x, y+13, length+2, 1, cvar.color_red*15.0f, cvar.color_green*15.0f, cvar.color_blue*25.0f, tint/255*128);
+		g_Engine.pfnFillRGBA( x, y+14, length+2, 1, cvar.color_red*05.0f, cvar.color_green*05.0f, cvar.color_blue*05.0f, tint/255*128);
 
-		FillRGBA( x-1, y, length+4, 1 ,cvar.color_red*255.0f/2, cvar.color_green*255.0f/2, cvar.color_blue*255.0f/2,tint/1.0f*0.55 );    //top
-		FillRGBA( x-1, y+1, 1, 14 ,cvar.color_red*255.0f/2, cvar.color_green*255.0f/2, cvar.color_blue*255.0f/2,tint/1.0f*0.55 );	        //left
-		FillRGBA( x-2+length+4, y, 1, 15 ,255/1.0f*0.22f, 255/1.0f*0.22f, 255/1.0f*0.22f,tint );	//right
-		FillRGBA( x-1, y+15, length+4, 1 ,255/1.0f*0.22f, 255/1.0f*0.22f, 255/1.0f*0.22f, tint ); //bottom
+		g_Engine.pfnFillRGBA( x-1, y, length+4, 1 ,cvar.color_red*255.0f/2, cvar.color_green*255.0f/2, cvar.color_blue*255.0f/2,tint/1.0f*0.55 );    //top
+		g_Engine.pfnFillRGBA( x-1, y+1, 1, 14 ,cvar.color_red*255.0f/2, cvar.color_green*255.0f/2, cvar.color_blue*255.0f/2,tint/1.0f*0.55 );	        //left
+		g_Engine.pfnFillRGBA( x-2+length+4, y, 1, 15 ,255/1.0f*0.22f, 255/1.0f*0.22f, 255/1.0f*0.22f,tint );	//right
+		g_Engine.pfnFillRGBA( x-1, y+15, length+4, 1 ,255/1.0f*0.22f, 255/1.0f*0.22f, 255/1.0f*0.22f, tint ); //bottom
 	}
 	g_Engine.pfnDrawSetTextColor((float)r/255.0,(float)g/255.0,(float)b/255.0);
 	g_Engine.pfnDrawConsoleString(x,y,buf);
@@ -171,10 +151,10 @@ void DrawHudStringCenterEsp (int x, int y, int r, int g, int b, float back, floa
 
 void blackBorder(int x,int y,int w, int h, int tint)
 {
-	FillRGBA( x-1, y-1, w+2, 1 ,0,0,0,tint ); 
-	FillRGBA( x-1, y, 1, h-1 ,0,0,0,tint );	
-	FillRGBA( x+w, y, 1, h-1 ,0,0,0,tint );	
-	FillRGBA( x-1, y+h-1, w+2, 1 ,0,0,0,tint ); 
+	g_Engine.pfnFillRGBA( x-1, y-1, w+2, 1 ,0,0,0,tint ); 
+	g_Engine.pfnFillRGBA( x-1, y, 1, h-1 ,0,0,0,tint );	
+	g_Engine.pfnFillRGBA( x+w, y, 1, h-1 ,0,0,0,tint );	
+	g_Engine.pfnFillRGBA( x-1, y+h-1, w+2, 1 ,0,0,0,tint ); 
 }
 
 void DrawFlatBox(int x, int y, int width, int height, float br, float bg, float bb, float ba)
@@ -246,24 +226,24 @@ void Draw3DSmoothBoxAndSmoothHeaderWithFlatBorderRdar(int x, int y, int bw, int 
 
 void BorderMenu(int x,int y,int w, int h,int r,int g,int b,int a)
 {
-	FillRGBA( x+1, y-1, w, 1 ,r,g,b,0.22f*255.0f ); //top
-	FillRGBA( x, y-1, 1, h+1 ,r,g,b,0.22f*255.0f );	//left
-	FillRGBA( x+w, y, 1, h-1 ,r,g,b,0.78f*255.0f );	//right
-	FillRGBA( x+1, y+h-1, w, 1 ,r,g,b,0.78f*255.0f ); //bottom
+	g_Engine.pfnFillRGBA( x+1, y-1, w, 1 ,r,g,b,0.22f*255.0f ); //top
+	g_Engine.pfnFillRGBA( x, y-1, 1, h+1 ,r,g,b,0.22f*255.0f );	//left
+	g_Engine.pfnFillRGBA( x+w, y, 1, h-1 ,r,g,b,0.78f*255.0f );	//right
+	g_Engine.pfnFillRGBA( x+1, y+h-1, w, 1 ,r,g,b,0.78f*255.0f ); //bottom
 }
 
 void DrawBoxAtScreenXY( int x, int y, int r, int g, int b, int alpha, int radius=1)
 {
 	int radius1 = radius<<1;
-	FillRGBA(x-radius+1, y-radius, radius1-1,1,r,g,b,alpha);
-	FillRGBA(x-radius, y-radius, 1,radius1,r,g,b,alpha);
-	FillRGBA(x-radius, y+radius, radius1,1,r,g,b,alpha);
-	FillRGBA(x+radius, y-radius, 1,radius1+1,r,g,b,alpha);
+	g_Engine.pfnFillRGBA(x-radius+1, y-radius, radius1-1,1,r,g,b,alpha);
+	g_Engine.pfnFillRGBA(x-radius, y-radius, 1,radius1,r,g,b,alpha);
+	g_Engine.pfnFillRGBA(x-radius, y+radius, radius1,1,r,g,b,alpha);
+	g_Engine.pfnFillRGBA(x+radius, y-radius, 1,radius1+1,r,g,b,alpha);
 }
 
 void tintArea(int x,int y,int w,int h,int r,int g,int b,int a)
 {
-	FillRGBA(x,y,w,h,r,g,b,a);
+	g_Engine.pfnFillRGBA(x,y,w,h,r,g,b,a);
 }
 
 void DrawStippledLines(int x1,int y1,int x2,int y2,int width,GLint factor,GLushort pattern,ColorEntry *color)
@@ -393,80 +373,80 @@ void DrawVectorLine(float *flSrc,float *flDestination,int width,ColorEntry *colo
 
 void Box(int x, int y, int w)
 {
-	FillRGBA(x+w-18,y-14,1,15,0,0,0,255); //left box
-	FillRGBA(x+w-4,y-14,1,15,0,0,0,255); //right box
-	FillRGBA(x+w-17,y-14,13,1,0,0,0,255); //up box
-	FillRGBA(x+w-17,y,13,1,0,0,0,255); //down box
+	g_Engine.pfnFillRGBA(x+w-18,y-14,1,15,0,0,0,255); //left box
+	g_Engine.pfnFillRGBA(x+w-4,y-14,1,15,0,0,0,255); //right box
+	g_Engine.pfnFillRGBA(x+w-17,y-14,13,1,0,0,0,255); //up box
+	g_Engine.pfnFillRGBA(x+w-17,y,13,1,0,0,0,255); //down box
 
-	FillRGBA(x+w-17,y-13,13,1,245,0,0,255); //fill top box
-	FillRGBA(x+w-17,y-12,13,1,235,0,0,255); //down box
-	FillRGBA(x+w-17,y-11,13,1,225,0,0,255); //down box
-	FillRGBA(x+w-17,y-10,13,1,215,0,0,255); //down box
-	FillRGBA(x+w-17,y-9,13,1,205,0,0,255); //down box
-	FillRGBA(x+w-17,y-8,13,1,195,0,0,255); //down box
-	FillRGBA(x+w-17,y-7,13,1,185,0,0,255); //down box
-	FillRGBA(x+w-17,y-6,13,1,175,0,0,255); //down box
-	FillRGBA(x+w-17,y-5,13,1,165,0,0,255); //down box
-	FillRGBA(x+w-17,y-4,13,1,155,0,0,255); //down box
-	FillRGBA(x+w-17,y-3,13,1,145,0,0,255); //down box
-	FillRGBA(x+w-17,y-2,13,1,135,0,0,255); //down box
-	FillRGBA(x+w-17,y-1,13,1,125,0,0,255); //down box
+	g_Engine.pfnFillRGBA(x+w-17,y-13,13,1,245,0,0,255); //fill top box
+	g_Engine.pfnFillRGBA(x+w-17,y-12,13,1,235,0,0,255); //down box
+	g_Engine.pfnFillRGBA(x+w-17,y-11,13,1,225,0,0,255); //down box
+	g_Engine.pfnFillRGBA(x+w-17,y-10,13,1,215,0,0,255); //down box
+	g_Engine.pfnFillRGBA(x+w-17,y-9,13,1,205,0,0,255); //down box
+	g_Engine.pfnFillRGBA(x+w-17,y-8,13,1,195,0,0,255); //down box
+	g_Engine.pfnFillRGBA(x+w-17,y-7,13,1,185,0,0,255); //down box
+	g_Engine.pfnFillRGBA(x+w-17,y-6,13,1,175,0,0,255); //down box
+	g_Engine.pfnFillRGBA(x+w-17,y-5,13,1,165,0,0,255); //down box
+	g_Engine.pfnFillRGBA(x+w-17,y-4,13,1,155,0,0,255); //down box
+	g_Engine.pfnFillRGBA(x+w-17,y-3,13,1,145,0,0,255); //down box
+	g_Engine.pfnFillRGBA(x+w-17,y-2,13,1,135,0,0,255); //down box
+	g_Engine.pfnFillRGBA(x+w-17,y-1,13,1,125,0,0,255); //down box
 		
-	FillRGBA(x+w-7,y-11,1,1,0,0,0,255); //up X box
-	FillRGBA(x+w-15,y-11,1,1,0,0,0,255); //up X box
-	FillRGBA(x+w-8,y-10,1,1,0,0,0,255); //up X box
-	FillRGBA(x+w-14,y-10,1,1,0,0,0,255); //up X box
-	FillRGBA(x+w-9,y-9,1,1,0,0,0,255); //up X box
-	FillRGBA(x+w-13,y-9,1,1,0,0,0,255); //up X box
-	FillRGBA(x+w-10,y-8,1,1,0,0,0,255); //up X box
-	FillRGBA(x+w-12,y-8,1,1,0,0,0,255); //up X box
-	FillRGBA(x+w-11,y-7,1,1,0,0,0,255); //middle X box
-	FillRGBA(x+w-10,y-6,1,1,0,0,0,255); //down X box
-	FillRGBA(x+w-12,y-6,1,1,0,0,0,255); //down X box
-	FillRGBA(x+w-9,y-5,1,1,0,0,0,255); //down X box
-	FillRGBA(x+w-13,y-5,1,1,0,0,0,255); //down X box
-	FillRGBA(x+w-8,y-4,1,1,0,0,0,255); //down X box
-	FillRGBA(x+w-14,y-4,1,1,0,0,0,255); //down X box
-	FillRGBA(x+w-7,y-3,1,1,0,0,0,255); //down X box
-	FillRGBA(x+w-15,y-3,1,1,0,0,0,255); //down X box
+	g_Engine.pfnFillRGBA(x+w-7,y-11,1,1,0,0,0,255); //up X box
+	g_Engine.pfnFillRGBA(x+w-15,y-11,1,1,0,0,0,255); //up X box
+	g_Engine.pfnFillRGBA(x+w-8,y-10,1,1,0,0,0,255); //up X box
+	g_Engine.pfnFillRGBA(x+w-14,y-10,1,1,0,0,0,255); //up X box
+	g_Engine.pfnFillRGBA(x+w-9,y-9,1,1,0,0,0,255); //up X box
+	g_Engine.pfnFillRGBA(x+w-13,y-9,1,1,0,0,0,255); //up X box
+	g_Engine.pfnFillRGBA(x+w-10,y-8,1,1,0,0,0,255); //up X box
+	g_Engine.pfnFillRGBA(x+w-12,y-8,1,1,0,0,0,255); //up X box
+	g_Engine.pfnFillRGBA(x+w-11,y-7,1,1,0,0,0,255); //middle X box
+	g_Engine.pfnFillRGBA(x+w-10,y-6,1,1,0,0,0,255); //down X box
+	g_Engine.pfnFillRGBA(x+w-12,y-6,1,1,0,0,0,255); //down X box
+	g_Engine.pfnFillRGBA(x+w-9,y-5,1,1,0,0,0,255); //down X box
+	g_Engine.pfnFillRGBA(x+w-13,y-5,1,1,0,0,0,255); //down X box
+	g_Engine.pfnFillRGBA(x+w-8,y-4,1,1,0,0,0,255); //down X box
+	g_Engine.pfnFillRGBA(x+w-14,y-4,1,1,0,0,0,255); //down X box
+	g_Engine.pfnFillRGBA(x+w-7,y-3,1,1,0,0,0,255); //down X box
+	g_Engine.pfnFillRGBA(x+w-15,y-3,1,1,0,0,0,255); //down X box
 }
 
 void RadarBox(int x, int y, int w)
 {
-	FillRGBA(x+w-16,y-w-18,1,15,0,0,0,255); //left box
-	FillRGBA(x+w-2,y-w-18,1,15,0,0,0,255); //right box
-	FillRGBA(x+w-15,y-w-18,13,1,0,0,0,255); //up box
-	FillRGBA(x+w-15,y-w-4,13,1,0,0,0,255); //down box
+	g_Engine.pfnFillRGBA(x+w-16,y-w-18,1,15,0,0,0,255); //left box
+	g_Engine.pfnFillRGBA(x+w-2,y-w-18,1,15,0,0,0,255); //right box
+	g_Engine.pfnFillRGBA(x+w-15,y-w-18,13,1,0,0,0,255); //up box
+	g_Engine.pfnFillRGBA(x+w-15,y-w-4,13,1,0,0,0,255); //down box
 
-	FillRGBA(x+w-15,y-w-17,13,1,245,0,0,255); //fill top box
-	FillRGBA(x+w-15,y-w-16,13,1,235,0,0,255); //down box
-	FillRGBA(x+w-15,y-w-15,13,1,225,0,0,255); //down box
-	FillRGBA(x+w-15,y-w-14,13,1,215,0,0,255); //down box
-	FillRGBA(x+w-15,y-w-13,13,1,205,0,0,255); //down box
-	FillRGBA(x+w-15,y-w-12,13,1,195,0,0,255); //down box
-	FillRGBA(x+w-15,y-w-11,13,1,185,0,0,255); //down box
-	FillRGBA(x+w-15,y-w-10,13,1,175,0,0,255); //down box
-	FillRGBA(x+w-15,y-w-9,13,1,165,0,0,255); //down box
-	FillRGBA(x+w-15,y-w-8,13,1,155,0,0,255); //down box
-	FillRGBA(x+w-15,y-w-7,13,1,145,0,0,255); //down box
-	FillRGBA(x+w-15,y-w-6,13,1,135,0,0,255); //down box
-	FillRGBA(x+w-15,y-w-5,13,1,125,0,0,255); //down box
+	g_Engine.pfnFillRGBA(x+w-15,y-w-17,13,1,245,0,0,255); //fill top box
+	g_Engine.pfnFillRGBA(x+w-15,y-w-16,13,1,235,0,0,255); //down box
+	g_Engine.pfnFillRGBA(x+w-15,y-w-15,13,1,225,0,0,255); //down box
+	g_Engine.pfnFillRGBA(x+w-15,y-w-14,13,1,215,0,0,255); //down box
+	g_Engine.pfnFillRGBA(x+w-15,y-w-13,13,1,205,0,0,255); //down box
+	g_Engine.pfnFillRGBA(x+w-15,y-w-12,13,1,195,0,0,255); //down box
+	g_Engine.pfnFillRGBA(x+w-15,y-w-11,13,1,185,0,0,255); //down box
+	g_Engine.pfnFillRGBA(x+w-15,y-w-10,13,1,175,0,0,255); //down box
+	g_Engine.pfnFillRGBA(x+w-15,y-w-9,13,1,165,0,0,255); //down box
+	g_Engine.pfnFillRGBA(x+w-15,y-w-8,13,1,155,0,0,255); //down box
+	g_Engine.pfnFillRGBA(x+w-15,y-w-7,13,1,145,0,0,255); //down box
+	g_Engine.pfnFillRGBA(x+w-15,y-w-6,13,1,135,0,0,255); //down box
+	g_Engine.pfnFillRGBA(x+w-15,y-w-5,13,1,125,0,0,255); //down box
 	
-	FillRGBA(x+w-5,y-w-15,1,1,0,0,0,255); //up X box
-	FillRGBA(x+w-13,y-w-15,1,1,0,0,0,255); //up X box
-	FillRGBA(x+w-6,y-w-14,1,1,0,0,0,255); //up X box
-	FillRGBA(x+w-12,y-w-14,1,1,0,0,0,255); //up X box
-	FillRGBA(x+w-7,y-w-13,1,1,0,0,0,255); //up X box
-	FillRGBA(x+w-11,y-w-13,1,1,0,0,0,255); //up X box
-	FillRGBA(x+w-8,y-w-12,1,1,0,0,0,255); //up X box
-	FillRGBA(x+w-10,y-w-12,1,1,0,0,0,255); //up X box
-	FillRGBA(x+w-9,y-w-11,1,1,0,0,0,255); //middle X box
-	FillRGBA(x+w-8,y-w-10,1,1,0,0,0,255); //down X box
-	FillRGBA(x+w-10,y-w-10,1,1,0,0,0,255); //down X box
-	FillRGBA(x+w-7,y-w-9,1,1,0,0,0,255); //down X box
-	FillRGBA(x+w-11,y-w-9,1,1,0,0,0,255); //down X box
-	FillRGBA(x+w-6,y-w-8,1,1,0,0,0,255); //down X box
-	FillRGBA(x+w-12,y-w-8,1,1,0,0,0,255); //down X box
-	FillRGBA(x+w-5,y-w-7,1,1,0,0,0,255); //down X box
-	FillRGBA(x+w-13,y-w-7,1,1,0,0,0,255); //down X box
+	g_Engine.pfnFillRGBA(x+w-5,y-w-15,1,1,0,0,0,255); //up X box
+	g_Engine.pfnFillRGBA(x+w-13,y-w-15,1,1,0,0,0,255); //up X box
+	g_Engine.pfnFillRGBA(x+w-6,y-w-14,1,1,0,0,0,255); //up X box
+	g_Engine.pfnFillRGBA(x+w-12,y-w-14,1,1,0,0,0,255); //up X box
+	g_Engine.pfnFillRGBA(x+w-7,y-w-13,1,1,0,0,0,255); //up X box
+	g_Engine.pfnFillRGBA(x+w-11,y-w-13,1,1,0,0,0,255); //up X box
+	g_Engine.pfnFillRGBA(x+w-8,y-w-12,1,1,0,0,0,255); //up X box
+	g_Engine.pfnFillRGBA(x+w-10,y-w-12,1,1,0,0,0,255); //up X box
+	g_Engine.pfnFillRGBA(x+w-9,y-w-11,1,1,0,0,0,255); //middle X box
+	g_Engine.pfnFillRGBA(x+w-8,y-w-10,1,1,0,0,0,255); //down X box
+	g_Engine.pfnFillRGBA(x+w-10,y-w-10,1,1,0,0,0,255); //down X box
+	g_Engine.pfnFillRGBA(x+w-7,y-w-9,1,1,0,0,0,255); //down X box
+	g_Engine.pfnFillRGBA(x+w-11,y-w-9,1,1,0,0,0,255); //down X box
+	g_Engine.pfnFillRGBA(x+w-6,y-w-8,1,1,0,0,0,255); //down X box
+	g_Engine.pfnFillRGBA(x+w-12,y-w-8,1,1,0,0,0,255); //down X box
+	g_Engine.pfnFillRGBA(x+w-5,y-w-7,1,1,0,0,0,255); //down X box
+	g_Engine.pfnFillRGBA(x+w-13,y-w-7,1,1,0,0,0,255); //down X box
 }

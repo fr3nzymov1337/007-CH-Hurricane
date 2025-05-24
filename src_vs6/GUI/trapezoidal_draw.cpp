@@ -323,7 +323,7 @@ struct trapezoid_points DrawDiagonal1(int x, int y, int w, int len, int box, str
 		}
 
 		oglSubtractive = true;
-		FillRGBA( x-c,     y+c,      box,   box, color1.r,color1.g,color1.b,color1.a);
+		g_Engine.pfnFillRGBA( x-c,     y+c,      box,   box, color1.r,color1.g,color1.b,color1.a);
 		oglSubtractive = false;
 		c++;
 	}
@@ -339,7 +339,7 @@ struct trapezoid_points DrawDiagonal2(int x, int y, int w, int h, int len, int b
 	while(c<=len){
 
 		if(c!=0 && c != len)
-		   FillRGBA( x+c,     y-c,       box,    box-h-1, color2.r, color2.g, color2.b, color2.a);
+		   g_Engine.pfnFillRGBA( x+c,     y-c,       box,    box-h-1, color2.r, color2.g, color2.b, color2.a);
 
 		if(c==0)
 		{
@@ -358,7 +358,7 @@ struct trapezoid_points DrawDiagonal2(int x, int y, int w, int h, int len, int b
 		}
 
 		oglSubtractive = true;
-		FillRGBA( x+c,     y-c,      box,   box, color1.r,color1.g,color1.b,color1.a);
+		g_Engine.pfnFillRGBA( x+c,     y-c,      box,   box, color1.r,color1.g,color1.b,color1.a);
 		oglSubtractive = false;
 		c++;
 	}
@@ -374,7 +374,7 @@ struct trapezoid_points DrawDiagonal3(int x, int y, int w, int h, int len, int b
 	while(c<=len){
 
 		if(c!=0 && c != len)
-		   FillRGBA( x+c,     y-c,       box+c,    box+c, color2.r, color2.g, color2.b, color2.a);
+		   g_Engine.pfnFillRGBA( x+c,     y-c,       box+c,    box+c, color2.r, color2.g, color2.b, color2.a);
 
 		if(c==0)
 		{
@@ -393,7 +393,7 @@ struct trapezoid_points DrawDiagonal3(int x, int y, int w, int h, int len, int b
 		}
 
 		oglSubtractive = true;
-		FillRGBA( x+c,     y-c,      box,   box, color1.r,color1.g,color1.b,color1.a);
+		g_Engine.pfnFillRGBA( x+c,     y-c,      box,   box, color1.r,color1.g,color1.b,color1.a);
 		oglSubtractive = false;
 		c++;
 	}
@@ -408,7 +408,7 @@ struct trapezoid_points DrawCubeBox1(int x, int y, int w, int h, int box, int le
 	struct trapezoid_points tpoints2;
 
 	oglSubtractive = true;
-	FillRGBA( x+len+1,       y-len,         w-1,    box, color1.r, color1.g, color1.b, color1.a);
+	g_Engine.pfnFillRGBA( x+len+1,       y-len,         w-1,    box, color1.r, color1.g, color1.b, color1.a);
 	oglSubtractive = false;
 
 	int i=0;
@@ -417,7 +417,7 @@ struct trapezoid_points DrawCubeBox1(int x, int y, int w, int h, int box, int le
 		if(i>=(len-1));
 		else
 		{
-			FillRGBA( x+i+2,       y-i-1,         w-1,      box, color2.r, color2.g, color2.b, color2.a);//relleno
+			g_Engine.pfnFillRGBA( x+i+2,       y-i-1,         w-1,      box, color2.r, color2.g, color2.b, color2.a);//relleno
 		}
 
 		if(i==0)
@@ -437,26 +437,26 @@ struct trapezoid_points DrawCubeBox1(int x, int y, int w, int h, int box, int le
 		}
 
 		oglSubtractive = true;
-		FillRGBA( x+i,       y-i,         box,    box, color1.r, color1.g, color1.b, color1.a);  //raya derecha
-		FillRGBA( x+w+i,     y-i,         box,    box, color1.r, color1.g, color1.b, color1.a);  //raya izquierda
+		g_Engine.pfnFillRGBA( x+i,       y-i,         box,    box, color1.r, color1.g, color1.b, color1.a);  //raya derecha
+		g_Engine.pfnFillRGBA( x+w+i,     y-i,         box,    box, color1.r, color1.g, color1.b, color1.a);  //raya izquierda
 		oglSubtractive = false;
 		i++;
 	}
 
 	oglSubtractive = true;
 	int y_offs = h-1;
-	FillRGBA( x+1,       y,         w-1,    box, color1.r, color1.g, color1.b, color1.a);
+	g_Engine.pfnFillRGBA( x+1,       y,         w-1,    box, color1.r, color1.g, color1.b, color1.a);
 	oglSubtractive = false;
 
 	/////////////////////
 
 	oglSubtractive = true;
-	FillRGBA( tpoints1.p1_x,       tpoints1.p1_y+1,         box,    h, color1.r, color1.g, color1.b, color1.a);/*| izquierda*/
-	FillRGBA( tpoints1.p1_x+1,       tpoints1.p1_y+1+h,       w-1,    box, color1.r, color1.g, color1.b, color1.a);/*-- base*/
-	FillRGBA( tpoints1.p1_x+w,       tpoints1.p1_y+1,       box,    h, color1.r, color1.g, color1.b, color1.a);/*| derecha*/
+	g_Engine.pfnFillRGBA( tpoints1.p1_x,       tpoints1.p1_y+1,         box,    h, color1.r, color1.g, color1.b, color1.a);/*| izquierda*/
+	g_Engine.pfnFillRGBA( tpoints1.p1_x+1,       tpoints1.p1_y+1+h,       w-1,    box, color1.r, color1.g, color1.b, color1.a);/*-- base*/
+	g_Engine.pfnFillRGBA( tpoints1.p1_x+w,       tpoints1.p1_y+1,       box,    h, color1.r, color1.g, color1.b, color1.a);/*| derecha*/
 	oglSubtractive = false;
 
-	FillRGBA( tpoints1.p1_x+1,       tpoints1.p1_y+1,       w-1,    h+1, color2.r, color2.g, color2.b, color2.a);//relleno
+	g_Engine.pfnFillRGBA( tpoints1.p1_x+1,       tpoints1.p1_y+1,       w-1,    h+1, color2.r, color2.g, color2.b, color2.a);//relleno
 
 	tpoints1.p5_x=tpoints1.p1_x;
 	tpoints1.p5_y=tpoints1.p1_y+h+1;
@@ -468,7 +468,7 @@ struct trapezoid_points DrawCubeBox1(int x, int y, int w, int h, int box, int le
 	tpoints2 = DrawDiagonal2(tpoints1.p1_x+w, tpoints1.p1_y+1+h, w, h, len, box, color1, color2);
 
 	oglSubtractive = true;
-	FillRGBA( tpoints1.p4_x,       tpoints1.p4_y+1,       box,    h, color1.r, color1.g, color1.b, color1.a);/*| derecha exterior*/
+	g_Engine.pfnFillRGBA( tpoints1.p4_x,       tpoints1.p4_y+1,       box,    h, color1.r, color1.g, color1.b, color1.a);/*| derecha exterior*/
 	oglSubtractive = false;
 
 	tpoints1.p7_x=tpoints1.p4_x;
@@ -487,7 +487,7 @@ struct trapezoid_points DrawCubeBox2(int x, int y, int w, int h, int box, int le
 	struct trapezoid_points tpoints2;
 
 	oglSubtractive = true;
-	FillRGBA( x+len+1,       y-len,         w-1,    box, color1.r, color1.g, color1.b, color1.a);
+	g_Engine.pfnFillRGBA( x+len+1,       y-len,         w-1,    box, color1.r, color1.g, color1.b, color1.a);
 	oglSubtractive = false;
 
 	int i=0;
@@ -496,7 +496,7 @@ struct trapezoid_points DrawCubeBox2(int x, int y, int w, int h, int box, int le
 		if(i>=(len-1));
 		else
 		{
-			FillRGBA( x+i+2,       y-i-1,         w-1,      box, color2.r, color2.g, color2.b, color2.a);//relleno
+			g_Engine.pfnFillRGBA( x+i+2,       y-i-1,         w-1,      box, color2.r, color2.g, color2.b, color2.a);//relleno
 		}
 
 		if(i==0)
@@ -516,26 +516,26 @@ struct trapezoid_points DrawCubeBox2(int x, int y, int w, int h, int box, int le
 		}
 
 		oglSubtractive = true;
-		FillRGBA( x+i,       y-i,         box,    box, color1.r, color1.g, color1.b, color1.a);  //raya derecha
-		FillRGBA( x+w+i,     y-i,         box,    box, color1.r, color1.g, color1.b, color1.a);  //raya izquierda
+		g_Engine.pfnFillRGBA( x+i,       y-i,         box,    box, color1.r, color1.g, color1.b, color1.a);  //raya derecha
+		g_Engine.pfnFillRGBA( x+w+i,     y-i,         box,    box, color1.r, color1.g, color1.b, color1.a);  //raya izquierda
 		oglSubtractive = false;
 		i++;
 	}
 
 	oglSubtractive = true;
 	int y_offs = h-1;
-	FillRGBA( x+1,       y,         w-1,    box, color1.r, color1.g, color1.b, color1.a);
+	g_Engine.pfnFillRGBA( x+1,       y,         w-1,    box, color1.r, color1.g, color1.b, color1.a);
 	oglSubtractive = false;
 
 	/////////////////////
 
 	oglSubtractive = true;
-	FillRGBA( tpoints1.p1_x,       tpoints1.p1_y+1,         box,    h, color1.r, color1.g, color1.b, color1.a);/*| izquierda*/
-	FillRGBA( tpoints1.p1_x+1,       tpoints1.p1_y+1+h,       w-1,    box, color1.r, color1.g, color1.b, color1.a);/*-- base*/
-	FillRGBA( tpoints1.p1_x+w,       tpoints1.p1_y+1,       box,    h, color1.r, color1.g, color1.b, color1.a);/*| derecha*/
+	g_Engine.pfnFillRGBA( tpoints1.p1_x,       tpoints1.p1_y+1,         box,    h, color1.r, color1.g, color1.b, color1.a);/*| izquierda*/
+	g_Engine.pfnFillRGBA( tpoints1.p1_x+1,       tpoints1.p1_y+1+h,       w-1,    box, color1.r, color1.g, color1.b, color1.a);/*-- base*/
+	g_Engine.pfnFillRGBA( tpoints1.p1_x+w,       tpoints1.p1_y+1,       box,    h, color1.r, color1.g, color1.b, color1.a);/*| derecha*/
 	oglSubtractive = false;
 
-	//FillRGBA( tpoints1.p1_x+1,       tpoints1.p1_y+1,       w-1,    h+1, color2.r, color2.g, color2.b, color2.a);//relleno
+	//g_Engine.pfnFillRGBA( tpoints1.p1_x+1,       tpoints1.p1_y+1,       w-1,    h+1, color2.r, color2.g, color2.b, color2.a);//relleno
 
 	tpoints1.p5_x=tpoints1.p1_x;
 	tpoints1.p5_y=tpoints1.p1_y+h+1;
@@ -547,7 +547,7 @@ struct trapezoid_points DrawCubeBox2(int x, int y, int w, int h, int box, int le
 	tpoints2 = DrawDiagonal2(tpoints1.p1_x+w, tpoints1.p1_y+1+h, w, h, len, box, color1, color2);
 
 	oglSubtractive = true;
-	FillRGBA( tpoints1.p4_x,       tpoints1.p4_y+1,       box,    h, color1.r, color1.g, color1.b, color1.a);/*| derecha exterior*/
+	g_Engine.pfnFillRGBA( tpoints1.p4_x,       tpoints1.p4_y+1,       box,    h, color1.r, color1.g, color1.b, color1.a);/*| derecha exterior*/
 	oglSubtractive = false;
 
 	tpoints1.p7_x=tpoints1.p4_x;
@@ -564,12 +564,12 @@ void DrawBox1(int x, int y, int w, int h, struct rgba color1, struct rgba color2
 {
 	int box=1;
 	oglSubtractive = true;
-	FillRGBA( x,       y,       box,    h, color1.r, color1.g, color1.b, color1.a);/*| izquierda*/
-	FillRGBA( x+1,     y,       w,    box, color1.r, color1.g, color1.b, color1.a);/*-- superior*/
-	FillRGBA( x+w,     y+1,       box,    h, color1.r, color1.g, color1.b, color1.a);/*| derecha*/
-	FillRGBA( x+1,     y+h,       w,    box, color1.r, color1.g, color1.b, color1.a);/*-- inferior*/
+	g_Engine.pfnFillRGBA( x,       y,       box,    h, color1.r, color1.g, color1.b, color1.a);/*| izquierda*/
+	g_Engine.pfnFillRGBA( x+1,     y,       w,    box, color1.r, color1.g, color1.b, color1.a);/*-- superior*/
+	g_Engine.pfnFillRGBA( x+w,     y+1,       box,    h, color1.r, color1.g, color1.b, color1.a);/*| derecha*/
+	g_Engine.pfnFillRGBA( x+1,     y+h,       w,    box, color1.r, color1.g, color1.b, color1.a);/*-- inferior*/
 
-	FillRGBA( x+1,     y+1,       w-1,    h-1, color2.r, color2.g, color2.b, color2.a);//relleno
+	g_Engine.pfnFillRGBA( x+1,     y+1,       w-1,    h-1, color2.r, color2.g, color2.b, color2.a);//relleno
 	oglSubtractive = false;
 }
 
@@ -581,13 +581,13 @@ void DrawBox2(int x, int y, int w, int h, struct rgba color1, struct blendcolor 
 
 	oglSubtractive = true;
 
-	FillRGBA( x,       y,       box,    h, color1.r, color1.g, color1.b, color1.a);/*| izquierda*/
-	FillRGBA( x+1,     y,       w,    box, color1.r, color1.g, color1.b, color1.a);/*-- superior*/
-	FillRGBA( x+w,     y+1,       box,    h, color1.r, color1.g, color1.b, color1.a);/*| derecha*/
-	FillRGBA( x+1,     y+h,       w,    box, color1.r, color1.g, color1.b, color1.a);/*-- inferior*/
+	g_Engine.pfnFillRGBA( x,       y,       box,    h, color1.r, color1.g, color1.b, color1.a);/*| izquierda*/
+	g_Engine.pfnFillRGBA( x+1,     y,       w,    box, color1.r, color1.g, color1.b, color1.a);/*-- superior*/
+	g_Engine.pfnFillRGBA( x+w,     y+1,       box,    h, color1.r, color1.g, color1.b, color1.a);/*| derecha*/
+	g_Engine.pfnFillRGBA( x+1,     y+h,       w,    box, color1.r, color1.g, color1.b, color1.a);/*-- inferior*/
 
 
-	//FillRGBA( x+1,     y+1,       w-1,    h-1, color2.r, color2.g, color2.b, color2.a);//relleno
+	//g_Engine.pfnFillRGBA( x+1,     y+1,       w-1,    h-1, color2.r, color2.g, color2.b, color2.a);//relleno
 
 	Draw3DSmoothBox(x+1,     y+1,       w-1,    h-1, color2.upper_r,
 																	   color2.upper_g,

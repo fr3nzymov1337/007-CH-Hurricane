@@ -6,8 +6,8 @@ void DrawRadarFrame()
 {
 	if(cvar.misc_radar)
 	{
-		g_Engine.pfnFillRGBA(g_Screen.iWidth/2,g_Screen.iHeight/2-cvar.misc_radars,1,2*cvar.misc_radars,0,255,0,cvar.misc_tint*255.0f);
-		g_Engine.pfnFillRGBA(g_Screen.iWidth/2-cvar.misc_radars,g_Screen.iHeight/2,2*cvar.misc_radars,1,0,255,0,cvar.misc_tint*255.0f);
+		g_Engine.pfnFillRGBA(g_Screen.iWidth/2,g_Screen.iHeight/2-cvar.misc_radars,1,2*cvar.misc_radars,cvar.color_red*255.0f,cvar.color_green*255.0f,cvar.color_blue*255.0f,cvar.misc_tint*255.0f);
+		g_Engine.pfnFillRGBA(g_Screen.iWidth/2-cvar.misc_radars,g_Screen.iHeight/2,2*cvar.misc_radars,1,cvar.color_red*255.0f,cvar.color_green*255.0f,cvar.color_blue*255.0f,cvar.misc_tint*255.0f);
 	}
 }
 
@@ -59,6 +59,6 @@ void DrawRadarPoint(const float* origin,int r,int g,int b,int w, int h, bool cen
 	if(!center)
 		calcRadarPoint(origin,screenx,screeny,center);
 
-	FillRGBA(screenx-1,screeny-1,h,w,r,g,b,255);
+	g_Engine.pfnFillRGBA(screenx-1,screeny-1,h,w,r,g,b,255);
 	blackBorder(screenx-1,screeny-1,h,w+1,cvar.misc_tint*255.0f);
 }

@@ -407,11 +407,8 @@ void NoRefresh()
 {
 	sMe& l = g_Local;
 
-	if(cvar.misc_norefresh && cvar.rush && l.HudAlive && l.MsgAlive) {
-		cmd.exec("#r_norefresh 1");
-	} else {	
-		cmd.exec("#r_norefresh 0");
-	}
+	if(cvar.misc_norefresh && cvar.rush && l.HudAlive && l.MsgAlive) { cmd.exec("#r_norefresh 1"); } 
+	else { cmd.exec("#r_norefresh 0"); }
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -804,8 +801,8 @@ void ExcellentSettings()
 	cmd.exec("#gl_dither 1");
 	cmd.exec("#gl_cull 1");
 	cmd.exec("#gl_keeptjunctions 0");
-	cmd.exec("#gl_picmip 2");
-	cmd.exec("#gl_playermip 2");
+	cmd.exec("#gl_picmip 1");
+	cmd.exec("#gl_playermip 1");
 	cmd.exec("#gl_palette_tex 0");
 	cmd.exec("#gl_round_down 50"); 
 	cmd.exec("#gl_texturemode \"GL_LINEAR_MIPMAP_NEAREST\"");
@@ -824,8 +821,12 @@ void ExcellentSettings()
 	cmd.exec("#cl_shadows 0");
 	cmd.exec("#cl_weather 0");
 	cmd.exec("#cl_bob 0;#cl_bobup 0");
+	cmd.exec("#cl_crosshair_translucent 1");
+	cmd.exec("#cl_crosshair_color \"0 0 0\"");
+	/*
 	cmd.exec("#cl_crosshair_size \"small\"");
 	cmd.exec("#cl_crosshair_color \"50 250 50\"");
+	*/
 }
 
 //////////////////////////////////////////////////////////////////////////

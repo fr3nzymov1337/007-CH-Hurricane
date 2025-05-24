@@ -131,7 +131,7 @@ void CL_CreateMove(float frametime, struct usercmd_s * cmd, int active)
 
 	if(iTargetID == 0) { FixupAngleDifference(cmd); AntiAim(cmd); }
 
-	if(cvar.auto_direction && !(cvar.misc_spin || cvar.misc_aa_yaw) && l.HudAlive && l.MsgAlive && !IsExplosive(l.WpnID) && iTargetID == 0 && autoadjust.direction(cmd->viewangles))
+	if(cvar.auto_direction && cvar.way_on && !(cvar.misc_spin || cvar.misc_aa_yaw) && l.HudAlive && l.MsgAlive && !IsExplosive(l.WpnID) && iTargetID == 0 && autoadjust.direction(cmd->viewangles))
 		g_Engine.SetViewAngles(l.ViewAngles);
 
 	if(cvar.auto_jump && l.HudAlive && l.MsgAlive && cvar.way_on && autoadjust.Jump(cmd->viewangles))
