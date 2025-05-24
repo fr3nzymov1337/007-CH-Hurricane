@@ -323,7 +323,7 @@ void BeamDrawLine(float* from, float* to)
 	sMe& l = g_Local;
 
 	int beamindex = g_Engine.pEventAPI->EV_FindModelIndex("sprites/laserbeam.spr");
-	g_Engine.pEfxAPI->R_BeamPoints(from,to,beamindex,l.FrameTime*10.0f,3.0f,0,10,0,0,0,cvar.color_red, cvar.color_green, cvar.color_blue);
+	g_Engine.pEfxAPI->R_BeamPoints(from,to,beamindex,l.FrameTime*10.0f,2.0f,0,10,0,0,0,cvar.color_red, cvar.color_green, cvar.color_blue);
 }
 
 int iStringLen( const char *fmt, ... )

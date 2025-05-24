@@ -1,5 +1,5 @@
 #include "client.h"
-/*
+
 #undef DotProduct
 
 mleaf_t* GetLeafFromPoint(float* point)
@@ -106,4 +106,3 @@ void TraceThickness(float* start, float* end, float thickness, strace_t* tr)
 		VectorCopy(end, tr->endpos);
 	}
 }
-*/

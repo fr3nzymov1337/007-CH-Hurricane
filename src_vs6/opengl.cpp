@@ -49,9 +49,9 @@ void APIENTRY Hooked_glBegin(GLenum mode)
 			if(cvar.misc_wall)glDisable(GL_DEPTH_TEST);
 	}
 
-	if(cvar.misc_nightmode == 1 && mode == GL_POLYGON) { glColor4f(0.35f, 0.35f, 0.35f, 0.35f);	}
+	if(cvar.misc_nightmode && mode == GL_POLYGON) { glColor4f(0.35f, 0.35f, 0.35f, 0.35f);	}
 
-	if(cvar.misc_wirewall == 1 && mode == GL_POLYGON)
+	if(cvar.misc_wirewall && mode == GL_POLYGON)
 	{
 		glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
 		glLineWidth(1);
@@ -60,7 +60,7 @@ void APIENTRY Hooked_glBegin(GLenum mode)
 	else
 		glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
 
-	if (mode == GL_QUADS && cvar.misc_nosky == 1)
+	if (mode == GL_QUADS && cvar.misc_nosky)
 		bDrawingSky=true;
 	else
 		bDrawingSky=false;
@@ -74,17 +74,15 @@ void APIENTRY Hooked_glVertex3f(GLfloat x,GLfloat y,GLfloat z)
 		if(cvar.rush)
 			return;
 
-	if(cvar.misc_lambert == 1) 
-		glColor3f(1.0f,1.0f,1.0f);
-	else if(cvar.misc_lambert == 2) 
-		glColor3f(0.0f,0.0f,0.0f);
+	if(cvar.misc_lambert)		{ glColor3f(1.0f,1.0f,1.0f); }
+	if(cvar.misc_lambert > 1)	{ glColor3f(0.0f,0.0f,0.0f); }
 
 	(*pglVertex3f)(x, y, z);
 }
 
 void APIENTRY Hooked_glVertex3fv(GLfloat *v)
 {
-	if (bDrawingSky==true && cvar.misc_nosky == 1 && v[2]>3000)
+	if (bDrawingSky == true && cvar.misc_nosky && v[2]>3000)
 		return;
 
 	(*pglVertex3fv)(v);

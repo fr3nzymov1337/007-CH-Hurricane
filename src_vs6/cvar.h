@@ -94,6 +94,7 @@ public:
 	float misc_norefresh;
 	float misc_spin;
 	float misc_spinspeed;
+	float misc_hud;
 	float misc_nohud;
 	float misc_nosky;
 	float misc_lambert;

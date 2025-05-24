@@ -31,6 +31,9 @@ void HUD_Redraw(float time, int intermission)
 	Clienttime();
 	State();
 
+	// whatever
+	ColorCheck();
+
 	if(DrawVisuals && (!cvar.rush || cvar.way_drawvisuals))
 	{
 		Chase();
@@ -128,7 +131,7 @@ void CL_CreateMove(float frametime, struct usercmd_s * cmd, int active)
 
 	if(iTargetID == 0) { FixupAngleDifference(cmd); AntiAim(cmd); }
 
-	if(cvar.auto_direction && l.HudAlive && l.MsgAlive && !IsExplosive(l.WpnID) && iTargetID == 0 && autoadjust.direction(cmd->viewangles))
+	if(cvar.auto_direction && !(cvar.misc_spin || cvar.misc_aa_yaw) && l.HudAlive && l.MsgAlive && !IsExplosive(l.WpnID) && iTargetID == 0 && autoadjust.direction(cmd->viewangles))
 		g_Engine.SetViewAngles(l.ViewAngles);
 
 	if(cvar.auto_jump && l.HudAlive && l.MsgAlive && cvar.way_on && autoadjust.Jump(cmd->viewangles))
@@ -317,4 +320,11 @@ void HookFunction()
 	g_pClient->HUD_PostRunCmd = HUD_PostRunCmd;
 	g_pClient->HUD_UpdateClientData = HUD_UpdateClientData;
 	g_pClient->HUD_Key_Event = HUD_Key_Event;
+
+	// spr stuff
+	g_pEngine->pfnSPR_DrawAdditive = &SPR_DrawAdditive;
+	g_pEngine->pfnDrawCharacter = &DrawCharacter;
+	g_pEngine->pfnFillRGBA = &Hooked_FillRGBA;
+	g_pEngine->pfnSPR_Draw = &SPR_Draw;
+	g_pEngine->pfnSPR_Set = &SPR_Set;
 }

@@ -416,20 +416,15 @@ void NoRefresh()
 
 //////////////////////////////////////////////////////////////////////////
 
+
 void NoHUD()
 {
 	sMe& l = g_Local;
 
-	if(cvar.misc_nohud && cvar.rush && l.HudAlive && l.MsgAlive) {
-		cmd.exec("#hideradar");
-		cmd.exec("#hud_draw 0");
-		cmd.exec("#hud_saytext_time 0");
-	} else {	
-		cmd.exec("#drawradar");
-		cmd.exec("#hud_draw 1");
-		cmd.exec("#hud_saytext_time 5");
-	}
+	if(cvar.misc_nohud && cvar.rush && l.HudAlive && l.MsgAlive) { /* cmd.exec("#hideradar"); cmd.exec("#hud_draw 0"); */ cmd.exec("#hud_saytext_time 0"); } 
+	else { /* cmd.exec("#drawradar"); cmd.exec("#hud_draw 1"); */ cmd.exec("#hud_saytext_time 5"); }
 }
+
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -704,6 +699,83 @@ void QuakeGuns()
 
 //////////////////////////////////////////////////////////////////////////
 
+static int sprset_hsprite = 0;
+static int sprset_r, sprset_g, sprset_b;
+
+//////////////////////////////////////////////////////////////////////////
+
+void SPR_DrawAdditive(int frame, int x, int y, const wrect_t *prc)
+{
+	if(cvar.rush) return;
+
+	if(cvar.misc_hud) g_Engine.pfnSPR_Set(sprset_hsprite,sprset_r,sprset_g,sprset_b);
+	g_Engine.pfnSPR_DrawAdditive(frame,x,y,prc);
+
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void Hooked_FillRGBA(int x, int y, int width, int height, int r, int g, int b, int a)
+{
+	if(cvar.rush) return;
+
+	if(cvar.misc_hud) { g_Engine.pfnFillRGBA(x,y,width,height,cvar.color_red*255,cvar.color_green*255,cvar.color_blue*255,a); }
+	else { g_Engine.pfnFillRGBA(x,y,width,height,r,g,b,a); }
+}
+	
+//////////////////////////////////////////////////////////////////////////
+
+int	DrawCharacter(int x, int y, int number, int r, int g, int b)
+{
+	if( b==0 && g>0 && cvar.misc_hud)
+	{
+		register double ratio = (double(r)/double(g));
+		if( ratio>=1.5 && ratio<=1.7 )
+			return g_Engine.pfnDrawCharacter(x,y,number,cvar.color_red*r/255,cvar.color_green*r/255,cvar.color_blue*r/255);
+	}
+
+	return g_Engine.pfnDrawCharacter(x,y,number,r,g,b);
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void SPR_Set(int hPic, int r, int g, int b)
+{
+	if(cvar.rush) return;
+
+	if(cvar.misc_hud)
+	{
+		#define MAX_VALUE(a,b,c) ( a>b? (a>c?a:(b>c?b:c)) : (b>c?b:c) )
+
+		sprset_hsprite=hPic;
+		int intensity = MAX_VALUE(r,g,b);
+
+		sprset_r = cvar.color_red*intensity;
+		sprset_g = cvar.color_green*intensity;
+		sprset_b = cvar.color_blue*intensity;
+	}
+
+	g_Engine.pfnSPR_Set (hPic,r,g,b);
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void SPR_Draw(int frame, int x, int y, const wrect_t* prc) { if(cvar.rush) return; }
+
+//////////////////////////////////////////////////////////////////////////
+
+// whatever
+void ColorCheck() 
+{ 
+	if((cvar.color_red <= 0 && cvar.color_green <= 0 && cvar.color_blue <= 0)) { cvar.color_red = 0.0; cvar.color_green = 0.0; cvar.color_blue = 1.0; };
+
+	if(cvar.color_red > 1) { cvar.color_red = 1.0; }
+	if(cvar.color_green > 1) { cvar.color_green = 1.0; }
+	if(cvar.color_blue > 1) { cvar.color_blue = 1.0; }
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 void ExcellentSettings()
 {
 	// FPS
@@ -752,9 +824,11 @@ void ExcellentSettings()
 	cmd.exec("#cl_shadows 0");
 	cmd.exec("#cl_weather 0");
 	cmd.exec("#cl_bob 0;#cl_bobup 0");
-	cmd.exec("#cl_crosshair_color 0");
-	cmd.exec("#cl_crosshair_translucent 1");
+	cmd.exec("#cl_crosshair_size \"small\"");
+	cmd.exec("#cl_crosshair_color \"50 250 50\"");
 }
+
+//////////////////////////////////////////////////////////////////////////
 
 bool CanAttack(void)
 {
