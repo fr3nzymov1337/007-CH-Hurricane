@@ -11,6 +11,7 @@ public:
 
     float aim_activate;
     float aim_team;
+	float aim_thru;
 	float aim_mode;
 	float aim_shield;
     float aim_silent;

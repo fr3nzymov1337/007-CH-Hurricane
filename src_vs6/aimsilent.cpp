@@ -356,44 +356,32 @@ void ApplyAngles(usercmd_s *cmd, int i)
 	}
 }
 
-int PathFree(float* from,float* to) 
-{ 
-	if( !from || !to ) { return false; }
-
-	int pathtest; 
-
-	pmtrace_t tr; 
-
-	sMe& l = g_Local;
-
-	g_Engine.pEventAPI->EV_SetTraceHull( 2 ); 
-	g_Engine.pEventAPI->EV_PlayerTrace( from, to, PM_GLASS_IGNORE | PM_STUDIO_BOX, l.iIndex, &tr ); 
-
-	pathtest = (tr.fraction == 1.0); 
-
-	return pathtest; 
-}
-
-// broken autowall (fps issue)
-/*
 int CorrectGun() 
 { 
     sMe& l = g_Local;
 
-	if (l.WpnID == WEAPONLIST_SG550 || 
-		l.WpnID == WEAPONLIST_G3SG1 || 
-		l.WpnID == WEAPONLIST_SCOUT || 
+	if (l.WpnID == WEAPONLIST_SG550		|| 
+		l.WpnID == WEAPONLIST_G3SG1		|| 
+		l.WpnID == WEAPONLIST_SCOUT		|| 
 		l.WpnID == WEAPONLIST_AWP) 
 		return 3; 
-	if (l.WpnID == WEAPONLIST_AUG || 
-		l.WpnID == WEAPONLIST_DEAGLE || 
-		l.WpnID == WEAPONLIST_AK47) 
+	if (l.WpnID == WEAPONLIST_DEAGLE	|| 
+		l.WpnID == WEAPONLIST_AUG		||
+		l.WpnID == WEAPONLIST_AK47		||
+		l.WpnID == WEAPONLIST_M4A1		|| 
+		l.WpnID == WEAPONLIST_GALIL		||
+		l.WpnID == WEAPONLIST_FAMAS		||
+		l.WpnID == WEAPONLIST_SG552) 
 		return 2; 
 	return 0; 
 }
 
+// ==================== AUTOWALL BETA ======================
+
 int CanPenetrate( float *start, float *end, int power ) 
 {
+	sMe& l = g_Local;
+
 	pmtrace_t pmtrace;
 	pmtrace_t* tr = (pmtrace_t*) &pmtrace;
 	
@@ -414,43 +402,46 @@ int CanPenetrate( float *start, float *end, int power )
 	position[0] = start[0];
 	position[1] = start[1];
 	position[2] = start[2];
+
 	tr->startsolid = true;
 	
-	while( power )
+	while(power)
 	{ 
-		if( !tr->startsolid )
+		if(!tr->startsolid)
 			power--;
-		tr = g_pEngine->PM_TraceLine( position, end, PM_TRACELINE_PHYSENTSONLY, 2, -1);
+		tr = g_Engine.PM_TraceLine(position, end, PM_TRACELINE_PHYSENTSONLY, 1, l.iIndex);
 		
-		if( tr->fraction==1.0f )
+		if(tr->fraction == 1.0f)
 			return 1;
-		if( tr->allsolid )
+		if(tr->allsolid)
 			return 0;
 		
-		position[0] = tr->endpos[0] + dir[0] * 8.0f;
-		position[1] = tr->endpos[1] + dir[1] * 8.0f;
-		position[2] = tr->endpos[2] + dir[2] * 8.0f;
+		position[0] = tr->endpos[0] + dir[0] * 64.0f;
+		position[1] = tr->endpos[1] + dir[1] * 64.0f;
+		position[2] = tr->endpos[2] + dir[2] * 64.0f;
 	}
+
 	return 0;
 }
 
 int PathFree(float* from,float* to) 
 { 
-	if( !from || !to ) { return false; }
+	if(!from || !to) { return false; }
+
 	int pathtest; 
 
 	pmtrace_t tr; 
 
 	sMe& l = g_Local;
 
-	g_Engine.pEventAPI->EV_SetTraceHull( 2 ); 
-	g_Engine.pEventAPI->EV_PlayerTrace( from, to, PM_GLASS_IGNORE | PM_STUDIO_BOX, -1, &tr ); 
+	g_Engine.pEventAPI->EV_SetTraceHull(2); 
+	g_Engine.pEventAPI->EV_PlayerTrace(from, to, PM_GLASS_IGNORE, l.iIndex, &tr); 
 
-	pathtest = (tr.fraction == 1.0); 
+	pathtest = (tr.fraction == 1.0f); 
 
-	if (!pathtest && cvar.aim_activate) 
-		pathtest = CanPenetrate(from, to, CorrectGun());
+	if (!pathtest && cvar.aim_activate && cvar.aim_thru) { pathtest = CanPenetrate(from, to, CorrectGun()); } 
 
 	return pathtest; 
 }
-*/
+
+// ==================== AUTOWALL BETA ======================
