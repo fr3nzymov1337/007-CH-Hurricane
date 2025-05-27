@@ -281,9 +281,9 @@ void KnifeBot(usercmd_s *cmd, int i)
 	{
 		float distance;
 
-		if(cvar.knf_attack == 1)
+		if(cvar.knf_attack)
 			distance = (float)cvar.knf_distattack;
-		else if (cvar.knf_attack == 2)
+		else if (cvar.knf_attack < 1)
 			distance = (float)cvar.knf_distattack2;
 			
 		cl_entity_s* ent = g_pEngine->GetEntityByIndex(i);
@@ -292,9 +292,9 @@ void KnifeBot(usercmd_s *cmd, int i)
 		{
 			if(p.AimFov<=cvar.knf_fov)
 			{ 
-				if(cvar.knf_attack == 1)
+				if(cvar.knf_attack)
 					cmd->buttons |= IN_ATTACK;
-				else if(cvar.knf_attack == 2)
+				else if(cvar.knf_attack < 1)
 					cmd->buttons |= IN_ATTACK2;
 			}
 		}
@@ -312,9 +312,9 @@ void AimAuto(usercmd_s *cmd, int i)
 		{ 
 			if(IsKnife(l.WpnID))
 			{
-				if(cvar.aim_knf_attack == 1)
+				if(cvar.aim_knf_attack)
 					cmd->buttons |= IN_ATTACK;
-				else if(cvar.aim_knf_attack == 2)
+				else if(cvar.aim_knf_attack < 1)
 					cmd->buttons |= IN_ATTACK2;	 
 			}else{
 				if(bAttacking)

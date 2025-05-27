@@ -418,8 +418,8 @@ void NoHUD()
 {
 	sMe& l = g_Local;
 
-	if(cvar.misc_nohud && cvar.rush && l.HudAlive && l.MsgAlive) { /* cmd.exec("#hideradar"); cmd.exec("#hud_draw 0"); */ cmd.exec("#hud_saytext_time 0"); } 
-	else { /* cmd.exec("#drawradar"); cmd.exec("#hud_draw 1"); */ cmd.exec("#hud_saytext_time 5"); }
+	if(cvar.rush) { cmd.exec("#hud_saytext_time 0"); } 
+	else { cmd.exec("#hud_saytext_time 5"); }
 }
 
 
@@ -432,13 +432,13 @@ void SayHelloHook()
 	if(cvar.misc_sayid && l.HudAlive && l.MsgAlive) 
 	{
 		char omghi[255]; 
-		
+
 		sprintf(omghi, "say \"    *** [007 Client Hook V3 - Hurricane] ***\"");
-		
+
 		g_Engine.pfnClientCmd(omghi);
+
 	}
 }
-
 //////////////////////////////////////////////////////////////////////////
 
 void FixupAngleDifference(usercmd_t *cmd)
@@ -712,7 +712,7 @@ void SPR_DrawAdditive(int frame, int x, int y, const wrect_t *prc)
 
 //////////////////////////////////////////////////////////////////////////
 
-void Hooked_FillRGBA(int x, int y, int width, int height, int r, int g, int b, int a)
+void FillRGBA(int x, int y, int width, int height, int r, int g, int b, int a)
 {
 	if(cvar.rush) return;
 
@@ -724,10 +724,10 @@ void Hooked_FillRGBA(int x, int y, int width, int height, int r, int g, int b, i
 
 int	DrawCharacter(int x, int y, int number, int r, int g, int b)
 {
-	if( b==0 && g>0 && cvar.misc_hud)
+	if(b==0 && g>0 && cvar.misc_hud)
 	{
 		register double ratio = (double(r)/double(g));
-		if( ratio>=1.5 && ratio<=1.7 )
+		if(ratio>=1.5 && ratio<=1.7)
 			return g_Engine.pfnDrawCharacter(x,y,number,cvar.color_red*r/255,cvar.color_green*r/255,cvar.color_blue*r/255);
 	}
 
@@ -758,18 +758,6 @@ void SPR_Set(int hPic, int r, int g, int b)
 //////////////////////////////////////////////////////////////////////////
 
 void SPR_Draw(int frame, int x, int y, const wrect_t* prc) { if(cvar.rush) return; }
-
-//////////////////////////////////////////////////////////////////////////
-
-// whatever
-void ColorCheck() 
-{ 
-	if((cvar.color_red <= 0 && cvar.color_green <= 0 && cvar.color_blue <= 0)) { cvar.color_red = 0.0; cvar.color_green = 0.0; cvar.color_blue = 1.0; };
-
-	if(cvar.color_red > 1) { cvar.color_red = 1.0; }
-	if(cvar.color_green > 1) { cvar.color_green = 1.0; }
-	if(cvar.color_blue > 1) { cvar.color_blue = 1.0; }
-}
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -835,7 +823,7 @@ bool CanAttack(void)
 {
 	sMe& l = g_Local;
 
-	if (l.m_flNextPrimaryAttack <= 0.0 && !l.m_iInReload && l.m_flNextAttack <= 0.0)
+	if (l.m_flNextPrimaryAttack <= 0.01f && !l.m_iInReload && l.m_flNextAttack <= 0.01f)
 		return true;
 
 	return false;

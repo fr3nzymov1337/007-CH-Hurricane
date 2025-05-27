@@ -8,7 +8,7 @@ void GetScreenInfo()
 	if (FirstFrame)
 	{
 		g_Screen.iSize = sizeof(SCREENINFO);
-		gConsole.echo("&a ID: &w007 Client Hook [v3 - Hurricane] ");
+		gConsole.echo("&a ID: &w007 Client Hook [v3 - Hurricane]");
 		gConsole.echo(" ");
 		gConsole.echo("&a Code by: &w007, boy_scout, GYJ, cboby, b2k5, -=[eVOL]=-");
 		gConsole.echo(" ");
@@ -296,14 +296,6 @@ void DrawStippledVectorLine(float *flSrc,float *flDestination, int width, GLint 
 	if(!WorldToScreen(flSrc,vScreenSrc) | !WorldToScreen(flDestination,vScreenDest))
 		return;
 	DrawStippledLines((int)vScreenSrc[0],(int)vScreenSrc[1],(int)vScreenDest[0],(int)vScreenDest[1],width,factor,pattern,r,g,b,tint);
-}
-
-void BeamDrawLine(float* from, float* to)
-{
-	sMe& l = g_Local;
-
-	int beamindex = g_Engine.pEventAPI->EV_FindModelIndex("sprites/laserbeam.spr");
-	g_Engine.pEfxAPI->R_BeamPoints(from,to,beamindex,l.FrameTime*10.0f,2.0f,0,10,0,0,0,cvar.color_red, cvar.color_green, cvar.color_blue);
 }
 
 int iStringLen( const char *fmt, ... )

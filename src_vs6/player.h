@@ -140,10 +140,13 @@ extern void SayHelloHook();
 extern void ExcellentSettings();
 extern float GetGunOffset(cl_entity_s* vm);
 
-// 
-extern void Hooked_FillRGBA(int x, int y, int width, int height, int r, int g, int b, int a);
-extern int DrawCharacter(int x, int y, int number, int r, int g, int b);
+//
+extern void FillRGBA(int x, int y, int width, int height, int r, int g, int b, int a);
 extern void SPR_DrawAdditive(int frame, int x, int y, const wrect_t* prc);
 extern void SPR_Draw(int frame, int x, int y, const wrect_t* prc);
 extern void SPR_Set(int hPic, int r, int g, int b);
+
+//
+extern int DrawCharacter(int x, int y, int number, int r, int g, int b);
+
 #endif

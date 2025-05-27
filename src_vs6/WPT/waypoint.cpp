@@ -258,9 +258,9 @@ void WAYPOINT::FindTarget(struct usercmd_s *usercmd)
 	if(!l.MsgAlive){ FindNearPoint=false; isRunning=false; runContinue=false; beforeGroup=-1; iLine=-1; iPoint=-1; return; }
 	if(!cvar.rush || !cvar.way_on){ FindNearPoint=false; isRunning=false; runContinue=false; beforeGroup=-1; iLine=-1; iPoint=-1; return; }
 	if(IsKnife(l.WpnID) && iTargetID != 0){ FindNearPoint=false; isRunning=false; runContinue=false; beforeGroup=-1; iLine=-1; iPoint=-1; return; }
-	if(cvar.way_mode == 1 && iTargetID != 0){ FindNearPoint=false; isRunning=false; runContinue=false; beforeGroup=-1; iLine=-1; iPoint=-1; return; }
+	if(cvar.way_mode != 1 && iTargetID != 0){ FindNearPoint=false; isRunning=false; runContinue=false; beforeGroup=-1; iLine=-1; iPoint=-1; return; }
 
-	float nearDist=550.0f;
+	float nearDist = 550.0f;
 	float minAngles = 180.0f;
 
 	if(!FindNearPoint && !isRunning)
@@ -366,6 +366,14 @@ void WAYPOINT::FindTarget(struct usercmd_s *usercmd)
 	}
 }
 
+void WAYPOINT::DrawLine(float* from, float* to)
+{
+	sMe& l = g_Local;
+
+	int beamindex = g_Engine.pEventAPI->EV_FindModelIndex("sprites/laserbeam.spr");
+	g_Engine.pEfxAPI->R_BeamPoints(from, to, beamindex, l.FrameTime*10.0f, 3.0f, 0, 32, 0, 0, 0, cvar.color_red*0.0128f, cvar.color_green*0.0128f, cvar.color_blue*0.0128f);
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void WAYPOINT::DrawWayPoint()
@@ -438,7 +446,7 @@ void WAYPOINT::DrawWayLine()
 						{
 							from[0]=ways[i][j].point[0];from[1]=ways[i][j].point[1];from[2]=ways[i][j].point[2]-40;
 							to[0]=ways[i][j+1].point[0];to[1]=ways[i][j+1].point[1];to[2]=ways[i][j+1].point[2]-40;
-							if(getDist(ways[i][j].point)<800) { BeamDrawLine(from,to); } 
+							if(getDist(ways[i][j].point)<800) { DrawLine(from,to); } 
 						}
 					}
 					else
@@ -447,7 +455,7 @@ void WAYPOINT::DrawWayLine()
 						{
 							from[0]=ways[i][j].point[0];from[1]=ways[i][j].point[1];from[2]=ways[i][j].point[2]-40;
 							to[0]=ways[i][j+1].point[0];to[1]=ways[i][j+1].point[1];to[2]=ways[i][j+1].point[2]-40;
-							if(getDist(ways[i][j].point)<800) { BeamDrawLine(from,to); }
+							if(getDist(ways[i][j].point)<800) { DrawLine(from,to); }
 						}
 					}
 				}
@@ -480,6 +488,7 @@ void WAYPOINT::DrawRadarsPoints()
 void WAYPOINT::groupCountCalc()
 {
 	int index_max = 0;
+
 	for(int i=1;i<GROUP_MAX;i++)
 	{
 		if(point_count[i]>0)
@@ -565,7 +574,7 @@ void WAYPOINT::add(int index)
 {
 	sMe& l = g_Local;
 
-	ways[index][point_count[index]].point[0]= l.Eye[0];
+	ways[index][point_count[index]].point[0] = l.Eye[0];
 	ways[index][point_count[index]].point[1] = l.Eye[1];
 	ways[index][point_count[index]].point[2] = l.Eye[2];
 
@@ -590,6 +599,7 @@ void WAYPOINT::clearAll()
 		point_count[i] = 0;
 	}
 	group_count = 0;
+
 	SaveToFile();
 }
 

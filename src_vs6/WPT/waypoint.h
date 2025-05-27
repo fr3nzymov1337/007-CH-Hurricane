@@ -22,6 +22,7 @@ public:
 	void MoveTo(float *point, float* forwardmove, float* sidemove);
 	void runDirection(int cur_direction,int cur_group,struct usercmd_s *usercmd);
 	void FindTarget(struct usercmd_s *usercmd);
+	void DrawLine(float* from, float* to);
 	void DrawRadarsPoints();
 	void DrawWayPoint();
 	void DrawWayLine();

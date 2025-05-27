@@ -73,9 +73,7 @@ void APIENTRY Hooked_glBegin(GLenum mode)
 
 void APIENTRY Hooked_glVertex3f(GLfloat x,GLfloat y,GLfloat z)
 {
-	if(cvar.misc_nohud)
-		if(cvar.rush)
-			return;
+	if(cvar.misc_nohud) { if(cvar.rush)return; }
 
 	if(cvar.misc_lambert)		{ glColor3f(1.0f,1.0f,1.0f); }
 	if(cvar.misc_lambert > 1)	{ glColor3f(0.0f,0.0f,0.0f); }

@@ -267,11 +267,11 @@ void listPlayer(Player* pPlayer)
 		{
 			teamname="CT";//CT
 			if(idhook.FirstKillPlayer[x]==0)
-				sprintf(newEntry.name,"              %s      %s",teamname,pinfo.name);
+				sprintf(newEntry.name,"            %s      %s   ",teamname,pinfo.name);
 			else if(idhook.FirstKillPlayer[x]==1)
-				sprintf(newEntry.name," On>      %s      %s",teamname,pinfo.name);
+				sprintf(newEntry.name," On>        %s      %s   ",teamname,pinfo.name);
 			else
-				sprintf(newEntry.name," Off>      %s      %s",teamname,pinfo.name);
+				sprintf(newEntry.name," Off>       %s      %s   ",teamname,pinfo.name);
 			sprintf(newEntry.content,"addplayer %d",x);
 			newEntry.player = 0;
 			pPlayer->items.push_back(newEntry);

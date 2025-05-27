@@ -132,10 +132,8 @@ int DeathMsg(const char *pszName, int iSize, void *pbuf)
 	{
 		char SayText[255]; 
 
-		if(headshot)
-			sprintf(SayText, "say \"[%s CLIENT HOOK V3 - HURRICANE] || [[[ *** HEADSHOT by %s ***]]]\"", sayidprefix, weaponName);
-		else
-			sprintf(SayText, "say \"[%s CLIENT HOOK V3 - HURRICANE] || [[[ *** KILLED by %s ***]]]\"",  sayidprefix, weaponName);
+		if(headshot) { sprintf(SayText, "say \"[%s CLIENT HOOK V3 - HURRICANE] || [[[ *** HEADSHOT by %s ***]]]\"", sayidprefix, weaponName); }
+		else { sprintf(SayText, "say \"[%s CLIENT HOOK V3 - HURRICANE] || [[[ *** KILLED by %s ***]]]\"",  sayidprefix, weaponName); }
 
 		g_Engine.pfnClientCmd(SayText);
 	}
