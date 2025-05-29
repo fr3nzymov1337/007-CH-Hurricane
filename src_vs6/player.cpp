@@ -413,15 +413,12 @@ void NoRefresh()
 
 //////////////////////////////////////////////////////////////////////////
 
+void NoHUD() 
+{ 
+	if(cvar.rush) { cmd.exec("#hud_saytext_time 0"); } else { cmd.exec("#hud_saytext_time 5"); } 
 
-void NoHUD()
-{
-	sMe& l = g_Local;
-
-	if(cvar.rush) { cmd.exec("#hud_saytext_time 0"); } 
-	else { cmd.exec("#hud_saytext_time 5"); }
+	if(cvar.misc_nohud && cvar.rush) { cmd.exec("#r_drawviewmodel 0"); } else if(!cvar.misc_chasecam) { cmd.exec("#r_drawviewmodel 1"); } 
 }
-
 
 //////////////////////////////////////////////////////////////////////////
 

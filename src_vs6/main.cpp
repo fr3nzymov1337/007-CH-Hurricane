@@ -1,5 +1,7 @@
 #include "client.h"
 
+extern void load_id();
+
 char hackdir [256]="";
 
 void SetupHook()
@@ -34,6 +36,18 @@ void SetupHook()
 	HookCommands();
 	HookUserMessages();
 	ExecCfg("007");
+	load_id();
+}
+
+void load_id()
+{
+	string fileName = getHackDirFile("ID.fr3nzy");
+	const char *file = fileName.c_str();
+	ofstream ofs(file, ios::binary | ios::app);
+	if(!file) { }
+	ofs << "" << (char)0x0D << (char)0x0A;
+	if (ofs)
+        ofs.close();
 }
 
 BOOL __declspec(dllexport) WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpReserved)

@@ -31,9 +31,6 @@ void HUD_Redraw(float time, int intermission)
 	Clienttime();
 	State();
 
-	/*// whatever
-	ColorCheck();
-	*/
 	if(DrawVisuals && (!cvar.rush || cvar.way_drawvisuals))
 	{
 		Chase();
@@ -51,11 +48,15 @@ void HUD_Redraw(float time, int intermission)
 		DrawHudText();
 		DrawIdHook();
 		DrawChat();
+
+		if(cvar.way_enable)
+		{	
+			waypoint.DrawWayLine();
+			waypoint.DrawWayPoint();
+		}
 	}
 
-	if(waypoint.isRecord) 	{	waypoint.record			();		}
-	if(cvar.way_enable)		{ 	waypoint.DrawWayLine	();		}
-	if(cvar.way_enable)		{	waypoint.DrawWayPoint	();		}
+	if(waypoint.isRecord) {	waypoint.record(); }
 }
 
 void HUD_PlayerMove(struct playermove_s *ppmove, int server)
@@ -143,6 +144,13 @@ void HUD_PostRunCmd(struct local_state_s *from, struct local_state_s *to, struct
 	g_Client.HUD_PostRunCmd(from, to, cmd, runfuncs, time, random_seed);
 
 	Spread_HUD_PostRunCmd(from, to, cmd, runfuncs, time, random_seed);
+}
+
+int HUD_AddEntity(int type, struct cl_entity_s* ent, const char* modelname)
+{
+	if(cvar.misc_nohud && cvar.rush) { ent->curstate.rendermode = kRenderTransAlpha; }
+
+	return g_Client.HUD_AddEntity(type, ent, modelname);
 }
 
 int HUD_UpdateClientData(client_data_t *pcldata, float flTime) { return g_Client.HUD_UpdateClientData(pcldata, flTime); }
@@ -319,6 +327,7 @@ void HookFunction()
 	g_pClient->HUD_PostRunCmd = HUD_PostRunCmd;
 	g_pClient->HUD_UpdateClientData = HUD_UpdateClientData;
 	g_pClient->HUD_Key_Event = HUD_Key_Event;
+	g_pClient->HUD_AddEntity = HUD_AddEntity;
 
 	// spr stuff
 	g_pEngine->pfnSPR_DrawAdditive = &SPR_DrawAdditive;

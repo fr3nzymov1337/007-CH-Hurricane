@@ -123,6 +123,7 @@ void DrawHudStringCenterEsp (int x, int y, int r, int g, int b, float back, floa
 	int length, height;
 	g_Engine.pfnDrawConsoleStringLen( buf, &length, &height );
 	x = x - length/2;
+
 	if(back)
 	{
 		g_Engine.pfnFillRGBA( x, y+1, length+2, 1, cvar.color_red*255.0f, cvar.color_green*255.0f, cvar.color_blue*255.0f, tint/255*128);
@@ -145,6 +146,7 @@ void DrawHudStringCenterEsp (int x, int y, int r, int g, int b, float back, floa
 		g_Engine.pfnFillRGBA( x-2+length+4, y, 1, 15 ,255/1.0f*0.22f, 255/1.0f*0.22f, 255/1.0f*0.22f,tint );	//right
 		g_Engine.pfnFillRGBA( x-1, y+15, length+4, 1 ,255/1.0f*0.22f, 255/1.0f*0.22f, 255/1.0f*0.22f, tint ); //bottom
 	}
+
 	g_Engine.pfnDrawSetTextColor((float)r/255.0,(float)g/255.0,(float)b/255.0);
 	g_Engine.pfnDrawConsoleString(x,y,buf);
 }

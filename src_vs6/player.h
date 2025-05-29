@@ -134,9 +134,7 @@ extern bool ValidEntity(cl_entity_s *pEnt);
 extern void NoHUD();
 extern void NoRefresh();
 extern void QuakeGuns();
-extern void ColorCheck();
 extern void SayHelloHook();
-
 extern void ExcellentSettings();
 extern float GetGunOffset(cl_entity_s* vm);
 
