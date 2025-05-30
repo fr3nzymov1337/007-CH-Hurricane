@@ -51,7 +51,7 @@ void HUD_Redraw(float time, int intermission)
 
 		if(cvar.way_enable)
 		{	
-			waypoint.DrawWayLine();
+			/*waypoint.DrawWayLine();*/
 			waypoint.DrawWayPoint();
 		}
 	}
@@ -148,6 +148,7 @@ void HUD_PostRunCmd(struct local_state_s *from, struct local_state_s *to, struct
 
 int HUD_AddEntity(int type, struct cl_entity_s* ent, const char* modelname)
 {
+	if(cvar.way_enable)				 { waypoint.DrawWayLine();						 }
 	if(cvar.misc_nohud && cvar.rush) { ent->curstate.rendermode = kRenderTransAlpha; }
 
 	return g_Client.HUD_AddEntity(type, ent, modelname);

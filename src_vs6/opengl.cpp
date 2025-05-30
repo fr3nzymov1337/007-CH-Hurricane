@@ -43,30 +43,40 @@ void APIENTRY Hooked_glBegin(GLenum mode)
 
 	if(DrawVisuals && (!cvar.rush || cvar.way_drawvisuals))
 	{
-		if(pEnt && pEnt->player && pEnt->curstate.solid || pEnt && !pEnt->player && pEnt->model && pEnt->model->name && strstr(pEnt->model->name , "w_" ))
-		{	
-			if(mode == GL_TRIANGLE_STRIP || mode == GL_TRIANGLE_FAN)
+		if(cvar.misc_wall)
+		{
+			if(!(mode == GL_TRIANGLE_STRIP || mode == GL_TRIANGLE_FAN || mode == GL_QUADS))
 			{
-				if(cvar.misc_wall)glDepthRange(0, 0.5);
+				float curcolor[4];
+				glGetFloatv(GL_CURRENT_COLOR, curcolor);
+				glDisable(GL_DEPTH_TEST);
+				glEnable(GL_BLEND);
+				glBlendFunc(GL_ONE_MINUS_SRC_ALPHA, GL_SRC_ALPHA_SATURATE);
+				glColor4f(curcolor[0], curcolor[1], curcolor[2], .667f);
+			}
+
+			else if(mode == GL_TRIANGLES || mode == GL_TRIANGLE_STRIP || mode == GL_TRIANGLE_FAN)
+			{ 
+				glEnable(GL_DEPTH_TEST);
+				glDisable(GL_BLEND);
 			}
 		}
+
+		if(cvar.misc_nightmode)
+			if(mode == GL_POLYGON) { glColor4f(0.5f, 0.5f, 0.5f, 0.5f); }
+
+		if(cvar.misc_wirewall && mode == GL_POLYGON)
+		{
+			glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
+			glLineWidth(1);
+			glColor3f(cvar.color_red, cvar.color_green, cvar.color_blue);
+		}
 		else
-			if(cvar.misc_wall)glDisable(GL_DEPTH_TEST);
+			glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
+
+		if (mode == GL_QUADS && cvar.misc_nosky) { bDrawingSky = true; }
+		else { bDrawingSky = false; }
 	}
-
-	if(cvar.misc_nightmode && mode == GL_POLYGON) { glColor4f(0.35f, 0.35f, 0.35f, 0.35f);	}
-
-	if(cvar.misc_wirewall && mode == GL_POLYGON)
-	{
-		glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
-		glLineWidth(1);
-		glColor3f(cvar.color_red, cvar.color_green, cvar.color_blue);
-	}
-	else
-		glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
-
-	if (mode == GL_QUADS && cvar.misc_nosky) { bDrawingSky = true; }
-	else { bDrawingSky = false; }
 
 	(*pglBegin)(mode);
 }

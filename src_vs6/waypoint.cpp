@@ -358,7 +358,6 @@ void WAYPOINT::FindTarget(struct usercmd_s *usercmd)
 		{
 			isRunning=true;
 		}
-
 		MoveTo(ways[iLine][iPoint].point, &usercmd->forwardmove, &usercmd->sidemove);
 	}
 	if(isRunning)
@@ -367,11 +366,12 @@ void WAYPOINT::FindTarget(struct usercmd_s *usercmd)
 	}
 }
 
-
 void WAYPOINT::DrawLine(float* from, float* to)
 {
+	sMe& l = g_Local;
+
 	int beamindex = g_Engine.pEventAPI->EV_FindModelIndex("sprites/laserbeam.spr");
-	g_Engine.pEfxAPI->R_BeamPoints(from, to, beamindex, 1.0f, 2.0f, 0, 32, 0, 0, 0, cvar.color_red*0.0128f, cvar.color_green*0.0128f, cvar.color_blue*0.0128f);
+	g_Engine.pEfxAPI->R_BeamPoints(from, to, beamindex, l.FrameTime*10.0f, 3.0f, 0, 32, 0, 0, 0, cvar.color_red*0.0128f, cvar.color_green*0.0128f, cvar.color_blue*0.0128f);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -382,7 +382,7 @@ void WAYPOINT::DrawWayPoint()
 
 	if(!l.MsgAlive && l.HudAlive) return;
 
-	if(cvar.rush && cvar.nohud) return;
+	if(cvar.rush && cvar.misc_nohud) return;
 
 	for(int i=1;i<=group_count;i++)
 	{
@@ -405,11 +405,11 @@ void WAYPOINT::DrawWayPoint()
 						{
 							int x = vecScreen[0];
 							int y = vecScreen[1];
-							DrawHudStringCenterEsp(x,y, 255, 255, 255, cvar.esp_back*255.0f, cvar.tint*255.0f, ".");
+							DrawHudStringCenterEsp(x,y, 255, 255, 255, cvar.misc_esp_back*255.0f, cvar.misc_tint*255.0f, ".");
 
 							if(j==0 || j==point_count[i]-1)
 							{
-								DrawHudStringCenterEsp(x, y+12, 255, 255, 255, cvar.esp_back*255.0f, cvar.tint*255.0f, "%d",i);
+								DrawHudStringCenterEsp(x, y+12, 255, 255, 255, cvar.misc_esp_back*255.0f, cvar.misc_tint*255.0f, "%d",i);
 							}
 						}
 					}
@@ -427,7 +427,7 @@ void WAYPOINT::DrawWayLine()
 
 	if(!l.MsgAlive && l.HudAlive) return;
 
-	if(cvar.rush && cvar.nohud) return;
+	if(cvar.rush && cvar.misc_nohud) return;
 
 	float vecScreen[2];
 	float from[3], to[3];
@@ -476,7 +476,7 @@ void WAYPOINT::DrawRadarsPoints()
 			{
 				if(!(j%10))
 				{
-					if(cvar.radar && cvar.radarpoints)DrawRadarPoint(ways[i][j].point,cvar.color_red*255.0f,cvar.color_green*255.0f,cvar.color_blue*255.0f,3,3,true);
+					if(cvar.misc_radar && cvar.misc_radarpoints)DrawRadarPoint(ways[i][j].point,cvar.color_red*255.0f,cvar.color_green*255.0f,cvar.color_blue*255.0f,3,3,true);
 				}
 			}
 		}
